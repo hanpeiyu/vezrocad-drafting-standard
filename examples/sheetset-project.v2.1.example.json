@@ -84,7 +84,8 @@
     "allowedPaperLayouts": [
       "A3-L",
       "A2-L"
-    ]
+    ],
+    "layoutStrategy": "paper-saving-first"
   },
   "expectedNotes": [
     "冷水/热水/排水属于专业图纸，具体工程仍需核对",

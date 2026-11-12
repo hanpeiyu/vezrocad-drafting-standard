@@ -59,9 +59,18 @@ def plan_layout(views, strategy="paper-saving-first", allowed_frames=None,
     if not allowed_frames or any(f not in fdict for f in allowed_frames):
         raise ValueError("invalid or empty frame selection")
     frame_rank={f:i for i,f in enumerate(allowed_frames)}
+    for v in views:
+        locked=v.get("locked")
+        if locked:
+            if locked.get("frameId") not in frame_rank:
+                raise ValueError("locked frame not among allowed frames")
+            if locked.get("rotationDegrees",0) not in (0,90) or locked.get("denominator",0)<=0:
+                raise ValueError("invalid locked viewport scale or rotation")
     candidates=[]
     for lay in layouts["templates"]:
         if lay["frameId"] not in frame_rank or len(lay["slots"])!=len(views):
+            continue
+        if any(v.get("locked") and v["locked"]["frameId"]!=lay["frameId"] for v in views):
             continue
         slots={s["slotId"]:s for s in lay["slots"]}
         if set(slots)!=set(names):continue
@@ -74,10 +83,13 @@ def plan_layout(views, strategy="paper-saving-first", allowed_frames=None,
                 possible=[];break
             clip=paper_rect_of_slot(slot)
             variants=[]
-            for denom in p["candidateDenominators"]:
-                if denom>p["policyCeiling"] or f"{paper}-1-{denom}" not in profiles:continue
-                rotations=(0,90) if p["allow90DegreeRotation"] else (0,)
+            lock=v.get("locked")
+            denominators=([lock["denominator"]] if lock else p["candidateDenominators"])
+            for denom in denominators:
+                if (not lock and denom>p["policyCeiling"]) or f"{paper}-1-{denom}" not in profiles:continue
+                rotations=([lock.get("rotationDegrees",0)] if lock else ((0,90) if p["allow90DegreeRotation"] else (0,)))
                 for rot in rotations:
+                    if not lock and rot==90 and not p["allow90DegreeRotation"]:continue
                     geom=fit_model(v["boundsMm"],clip,denom,rot)
                     if geom["fits"]:
                         variants.append({"slotId":slot["slotId"],"viewId":v["viewId"],
@@ -104,6 +116,10 @@ def plan_layout(views, strategy="paper-saving-first", allowed_frames=None,
                                "requiresReview":True})
     candidates.sort(key=lambda v:v["score"])
     if not candidates:
+        if any(v.get("locked") for v in views):
+            return {"status":"locked-overflow","requiresReview":True,"provisional":True,
+                    "recommendation":"User-locked scale/frame does not fit; keep lock and ask for explicit approval to change it",
+                    "alternatives":[]}
         return {"status":"no-fit","requiresReview":True,"provisional":True,
                 "recommendation":"Try larger paper, separate room/detail sheets, or approved alternate scales",
                 "alternatives":[]}

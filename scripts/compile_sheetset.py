@@ -6,7 +6,7 @@ import argparse
 import json
 import uuid
 from pathlib import Path
-from resolve_scale_fit import resolve
+from plan_sheet_layout import plan_layout
 ROOT=Path(__file__).resolve().parents[1]
 
 def read(name):
@@ -83,18 +83,38 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
                 refkey=t["id"]+"|"+";".join(f"{k}={target[k]}" for k in sorted(target)) if target else t["id"]
                 geometry=project.get("modelBoundsMm",{}).get(refkey) or project.get("modelBoundsMm",{}).get(t["id"])
                 if geometry:
-                    fit_result=resolve(view_id,geometry["widthMm"],geometry["heightMm"],
-                        allowed_layouts=project.get("outputRequest",{}).get("allowedPaperLayouts",["A3-L"]),
-                        annotation_reserve_width_mm=geometry.get("annotationReserveWidthMm",0),
-                        annotation_reserve_height_mm=geometry.get("annotationReserveHeightMm",0),
-                        locked=geometry.get("locked"),
-                        lineweights_data=profile)
-                    if fit_result["status"]=="fit-suggested":
-                        paper=fit_result["paperId"]
-                        scale=fit_result["scaleDenominator"]
+                    request=project.get("outputRequest",{})
+                    legacy_frames=request.get("allowedPaperLayouts",[paper+"-L"])
+                    allowed_frames=[item if item.endswith("-VZ") else item+"-VZ" for item in legacy_frames]
+                    lock=geometry.get("locked")
+                    if lock:
+                        lock={"frameId":lock["layoutId"] if lock["layoutId"].endswith("-VZ") else lock["layoutId"]+"-VZ",
+                              "denominator":lock["denominator"],"rotationDegrees":lock.get("rotationDegrees",0)}
+                    planned=plan_layout([{"slotId":"PRIMARY","viewId":view_id,
+                        "boundsMm":{"widthMm":geometry["widthMm"],"heightMm":geometry["heightMm"],
+                                    "annotationReserveWidthMm":geometry.get("annotationReserveWidthMm",0),
+                                    "annotationReserveHeightMm":geometry.get("annotationReserveHeightMm",0)},
+                        **({"locked":lock} if lock else {})}],
+                        strategy=request.get("layoutStrategy","paper-saving-first"),
+                        allowed_frames=allowed_frames,lineweights=profile)
+                    fit_result={"status":planned["status"],"algorithm":"title-block-aware-layout-planner",
+                                "provisional":True,"requiresReview":True}
+                    if planned["status"]=="fit-suggested":
+                        choice=planned["recommended"]
+                        selected=choice["viewports"][0]
+                        fit_result.update({"paperId":choice["paperId"],"layoutTemplateId":choice["layoutId"],
+                            "frameTemplateId":choice["frameId"],"scaleDenominator":selected["scaleDenominator"],
+                            "rotationDegrees":selected["rotationDegrees"],
+                            "lineweightProfileId":selected["lineweightPresetId"],
+                            "paperFeatureBoundsMm":selected["fit"],
+                            "alternativesCount":len(planned["alternatives"]),
+                            "printerCalibrated":choice["plotterCalibrated"]})
+                        paper=choice["paperId"]
+                        scale=selected["scaleDenominator"]
                         if scale!=suggested["scaleDenominator"]:
                             warnings.append({"severity":"REVIEW","code":"SCALE_AUTOFIT_ADJUSTED","typeId":t["id"],"preferred":suggested["scaleDenominator"],"suggested":scale,"paper":paper})
                     else:
+                        fit_result.update({"reason":planned.get("recommendation","fit not verified")})
                         warnings.append({"severity":"BLOCKED","code":"SCALE_FIT_FAILED","typeId":t["id"],"details":fit_result})
                 else:
                     warnings.append({"severity":"REVIEW","code":"SCALE_FIT_NOT_EVALUATED","typeId":t["id"],"reason":"CAD extents are required for actual fit"})

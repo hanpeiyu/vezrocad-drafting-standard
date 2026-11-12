@@ -68,6 +68,16 @@ mixed=[{"slotId":"PRIMARY","viewId":"plan-furniture","boundsMm":{"widthMm":12000
 combo=plan_layout(mixed,"paper-saving-first")
 assert combo["recommended"]["layoutId"]=="A3-MAIN-DETAIL",combo
 assert set(x["scaleDenominator"] for x in combo["recommended"]["viewports"])=={10,50},combo
+locked_bad=plan_layout([{"slotId":"PRIMARY","viewId":"plan-furniture",
+    "boundsMm":{"widthMm":24000,"heightMm":12000},
+    "locked":{"frameId":"A3-L-VZ","denominator":50,"rotationDegrees":0}}],
+    allowed_frames=["A3-L-VZ"])
+assert locked_bad["status"]=="locked-overflow"
+locked_good=plan_layout([{"slotId":"PRIMARY","viewId":"plan-furniture",
+    "boundsMm":{"widthMm":24000,"heightMm":12000},
+    "locked":{"frameId":"A3-L-VZ","denominator":75,"rotationDegrees":0}}],
+    allowed_frames=["A3-L-VZ"])
+assert locked_good["recommended"]["viewports"][0]["scaleDenominator"]==75
 missing=plan_layout([{"slotId":"PRIMARY","viewId":"plan-furniture"}])
 assert missing["status"]=="unmeasured"
 oversize=plan_layout([{"slotId":"PRIMARY","viewId":"plan-furniture","boundsMm":{"widthMm":100000,"heightMm":100000}}])
