@@ -1,0 +1,119 @@
+{
+  "schema": "vezrocad.admin-workspace.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "design-only",
+  "storage": {
+    "editing": "local SQLite working copy seeded from Git revision; transactions, FK and audit log",
+    "published": "immutable versioned JSON bundle committed/tagged in Git; plugin loads local signed/hashed snapshot",
+    "projectRuntime": "DWG owns geometry and semantic object data; optional separate project index cache; no third-party customer drawings in this public repository",
+    "offline": "plugin reads local published snapshots without network/SQLite administrative service",
+    "concurrency": "SQLite WAL with one primary writer and transaction-based saves; no direct multi-agent concurrent DB mutation"
+  },
+  "managementPages": [
+    {
+      "id": "overview",
+      "title": "规范版本总览",
+      "features": [
+        "当前发布版本",
+        "Draft差异",
+        "校验状态",
+        "可用规范包"
+      ]
+    },
+    {
+      "id": "sheets",
+      "title": "图纸目录与专业规则",
+      "features": [
+        "9专业组与37图纸类型",
+        "FOCUS/CONTEXT/HIDE矩阵",
+        "条件图纸套",
+        "多房间实例"
+      ]
+    },
+    {
+      "id": "layers",
+      "title": "图层与构件表达",
+      "features": [
+        "语义ID与中文图层映射",
+        "13表达角色",
+        "图块遮罩层级与规则冲突"
+      ]
+    },
+    {
+      "id": "scales",
+      "title": "纸张/比例自动适配",
+      "features": [
+        "预览A3/A2净区域",
+        "输入或提取DWG实际范围",
+        "优先比例与可读性",
+        "溢出提醒和分图建议"
+      ]
+    },
+    {
+      "id": "print",
+      "title": "打印与颜色",
+      "features": [
+        "四种目标STB模式",
+        "样式名一致性",
+        "线宽不随STB改写",
+        "PDF样张验证记录"
+      ]
+    },
+    {
+      "id": "dependencies",
+      "title": "图纸影响分析",
+      "features": [
+        "对象↔受影响图纸",
+        "规范变更影响清单",
+        "绘制顺序环检测",
+        "索引引用完整性"
+      ]
+    },
+    {
+      "id": "publish",
+      "title": "审核与发布",
+      "features": [
+        "草稿校验",
+        "旧版本差异",
+        "生成PR/ADR",
+        "发布固定版本JSON",
+        "CAD侧选择/回滚版本"
+      ]
+    }
+  ],
+  "futureApiContracts": [
+    {
+      "method": "GET",
+      "path": "/api/standards/revisions",
+      "usage": "list versioned standards; offline UI only"
+    },
+    {
+      "method": "POST",
+      "path": "/api/standards/drafts/validate",
+      "usage": "validate draft associations without changing CAD"
+    },
+    {
+      "method": "POST",
+      "path": "/api/scale-fit/preview",
+      "usage": "paper fit suggestions based on current viewport bounds"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sheetset/dry-run",
+      "usage": "return inferred sheet instances with warnings, no DWG writes"
+    },
+    {
+      "method": "POST",
+      "path": "/api/standards/drafts/export",
+      "usage": "generate reviewable JSON patch/PR; not publish automatically"
+    }
+  ],
+  "implementationRecommendation": {
+    "frontend": "React + TypeScript",
+    "cadPanel": "WebView2, local/offline first",
+    "backend": ".NET C# service + Microsoft.Data.Sqlite or EF Core migrations",
+    "optionalExternalAdmin": "same frontend in standalone local browser / desktop; only when separately enabled"
+  },
+  "permissions": "proposal only; actual user approvals required for publishing or modifying production templates",
+  "notImplemented": true
+}
