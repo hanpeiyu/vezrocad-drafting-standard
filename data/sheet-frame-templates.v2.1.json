@@ -1,0 +1,241 @@
+{
+  "schema": "vezrocad.sheet-frames.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "units": "paper mm",
+  "coordinateSystem": "paper-space, origin lower-left, x right, y up, 1 unit = 1 paper mm",
+  "statusMeaning": "All geometry below is demonstration data, NOT copied national standard or verified for any physical printer",
+  "templates": [
+    {
+      "id": "A3-L-VZ",
+      "paperId": "A3",
+      "orientation": "landscape",
+      "paperRect": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 297
+      },
+      "printableRectExample": {
+        "x": 6,
+        "y": 6,
+        "width": 408,
+        "height": 285
+      },
+      "borderRect": {
+        "x": 12,
+        "y": 12,
+        "width": 396,
+        "height": 273
+      },
+      "zones": [
+        {
+          "id": "footer",
+          "kind": "reserved",
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 396,
+            "height": 43
+          },
+          "purpose": "title, drawing number, metadata and revision",
+          "plot": true
+        },
+        {
+          "id": "title-block",
+          "kind": "title-block",
+          "rect": {
+            "x": 286,
+            "y": 12,
+            "width": 122,
+            "height": 43
+          },
+          "purpose": "title block is nested within footer; not a second exclusion",
+          "plot": true
+        },
+        {
+          "id": "drawing",
+          "kind": "drawable",
+          "rect": {
+            "x": 18,
+            "y": 60,
+            "width": 384,
+            "height": 216
+          },
+          "purpose": "candidate viewport slots must fit within this rect",
+          "plot": false
+        }
+      ],
+      "titleBlockTemplateId": "VZ-TB-HORIZONTAL",
+      "calibratedPrinter": false
+    },
+    {
+      "id": "A2-L-VZ",
+      "paperId": "A2",
+      "orientation": "landscape",
+      "paperRect": {
+        "x": 0,
+        "y": 0,
+        "width": 594,
+        "height": 420
+      },
+      "printableRectExample": {
+        "x": 6,
+        "y": 6,
+        "width": 582,
+        "height": 408
+      },
+      "borderRect": {
+        "x": 12,
+        "y": 12,
+        "width": 570,
+        "height": 396
+      },
+      "zones": [
+        {
+          "id": "footer",
+          "kind": "reserved",
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 570,
+            "height": 43
+          },
+          "purpose": "project title and revision",
+          "plot": true
+        },
+        {
+          "id": "title-block",
+          "kind": "title-block",
+          "rect": {
+            "x": 460,
+            "y": 12,
+            "width": 122,
+            "height": 43
+          },
+          "purpose": "nested within footer",
+          "plot": true
+        },
+        {
+          "id": "drawing",
+          "kind": "drawable",
+          "rect": {
+            "x": 18,
+            "y": 60,
+            "width": 558,
+            "height": 340
+          },
+          "purpose": "viewports with annotation bands",
+          "plot": false
+        }
+      ],
+      "titleBlockTemplateId": "VZ-TB-HORIZONTAL",
+      "calibratedPrinter": false
+    },
+    {
+      "id": "A1-L-VZ",
+      "paperId": "A1",
+      "orientation": "landscape",
+      "paperRect": {
+        "x": 0,
+        "y": 0,
+        "width": 841,
+        "height": 594
+      },
+      "printableRectExample": {
+        "x": 8,
+        "y": 8,
+        "width": 825,
+        "height": 578
+      },
+      "borderRect": {
+        "x": 16,
+        "y": 16,
+        "width": 809,
+        "height": 562
+      },
+      "zones": [
+        {
+          "id": "footer",
+          "kind": "reserved",
+          "rect": {
+            "x": 16,
+            "y": 16,
+            "width": 809,
+            "height": 48
+          },
+          "purpose": "project title and revision",
+          "plot": true
+        },
+        {
+          "id": "title-block",
+          "kind": "title-block",
+          "rect": {
+            "x": 693,
+            "y": 16,
+            "width": 132,
+            "height": 48
+          },
+          "purpose": "nested within footer",
+          "plot": true
+        },
+        {
+          "id": "drawing",
+          "kind": "drawable",
+          "rect": {
+            "x": 22,
+            "y": 72,
+            "width": 797,
+            "height": 495
+          },
+          "purpose": "large plan viewport",
+          "plot": false
+        }
+      ],
+      "titleBlockTemplateId": "VZ-TB-HORIZONTAL",
+      "calibratedPrinter": false
+    }
+  ],
+  "titleBlocks": [
+    {
+      "id": "VZ-TB-HORIZONTAL",
+      "name": "家装施工图横向标准图签",
+      "mandatoryFields": [
+        "PROJECT_REF",
+        "SHEET_TITLE",
+        "SHEET_NO",
+        "REVISION",
+        "ISSUE_DATE",
+        "DRAWN_BY",
+        "CHECKED_BY",
+        "PAPER_SIZE",
+        "SCALE_LABEL",
+        "STANDARD_VERSION"
+      ],
+      "optionalFields": [
+        "PHASE",
+        "SHEET_COUNT",
+        "DISCIPLINE",
+        "DESIGN_COMPANY",
+        "DRAWING_STATUS"
+      ],
+      "scaleLabelRule": "one scale on sheet -> print 1:n; multiple scales -> 详见各视口/AS SHOWN",
+      "privacy": "client names/addresses are runtime data; never stored in this public catalog"
+    }
+  ],
+  "sheetBorderPolicies": {
+    "frameAndTitleBlockSpace": "paper-space",
+    "lineweightRule": "paper roles; use printable-safe plan not user plot device assumptions",
+    "defaultPlotArea": "layout",
+    "plotScale": "1:1",
+    "fitToPaper": false,
+    "printableArea": "the plot device PC3/PDF calibration result must override demonstration rectangle",
+    "borderMustBeWithinPrintableRect": true,
+    "revisionStrategy": "change revision label and issue date without changing persistent sheet UID",
+    "titleBlockAttributeStandard": "Block attribute tags stable; can localize visible labels only",
+    "frameLayer": "图纸-图框-打印",
+    "titleBlockLayer": "图纸-图签-打印",
+    "viewportBoundaryLayer": "图纸-视口-不打印",
+    "viewportBoundaryPlot": false
+  }
+}

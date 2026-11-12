@@ -1,0 +1,222 @@
+{
+  "schema": "vezrocad.sheet-layouts.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "units": "paper mm",
+  "semantics": "slots are physical page-space layout rectangles; titleBand reserved below viewport content; clipMargin applied to viewport content inset",
+  "templates": [
+    {
+      "id": "A3-SINGLE",
+      "frameId": "A3-L-VZ",
+      "name": "A3单主视图",
+      "slots": [
+        {
+          "slotId": "PRIMARY",
+          "viewRole": "PRIMARY",
+          "slotRect": {
+            "x": 18,
+            "y": 60,
+            "width": 384,
+            "height": 216
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "plan",
+            "elevation",
+            "detail"
+          ]
+        }
+      ],
+      "gapMinMm": 5
+    },
+    {
+      "id": "A3-MAIN-DETAIL",
+      "frameId": "A3-L-VZ",
+      "name": "A3主图加节点",
+      "slots": [
+        {
+          "slotId": "PRIMARY",
+          "viewRole": "PRIMARY",
+          "slotRect": {
+            "x": 18,
+            "y": 60,
+            "width": 252,
+            "height": 216
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "plan",
+            "elevation"
+          ]
+        },
+        {
+          "slotId": "DETAIL",
+          "viewRole": "DETAIL",
+          "slotRect": {
+            "x": 276,
+            "y": 60,
+            "width": 126,
+            "height": 216
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "detail",
+            "elevation"
+          ]
+        }
+      ],
+      "gapMinMm": 6
+    },
+    {
+      "id": "A3-TWO-ELEVATIONS",
+      "frameId": "A3-L-VZ",
+      "name": "A3左右两张立面",
+      "slots": [
+        {
+          "slotId": "LEFT",
+          "viewRole": "ELEVATION",
+          "slotRect": {
+            "x": 18,
+            "y": 60,
+            "width": 189,
+            "height": 216
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "elevation"
+          ]
+        },
+        {
+          "slotId": "RIGHT",
+          "viewRole": "ELEVATION",
+          "slotRect": {
+            "x": 213,
+            "y": 60,
+            "width": 189,
+            "height": 216
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "elevation"
+          ]
+        }
+      ],
+      "gapMinMm": 6
+    },
+    {
+      "id": "A2-SINGLE",
+      "frameId": "A2-L-VZ",
+      "name": "A2单主视图",
+      "slots": [
+        {
+          "slotId": "PRIMARY",
+          "viewRole": "PRIMARY",
+          "slotRect": {
+            "x": 18,
+            "y": 60,
+            "width": 558,
+            "height": 340
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "plan",
+            "elevation",
+            "detail"
+          ]
+        }
+      ],
+      "gapMinMm": 5
+    },
+    {
+      "id": "A2-MAIN-DETAIL",
+      "frameId": "A2-L-VZ",
+      "name": "A2主图加节点",
+      "slots": [
+        {
+          "slotId": "PRIMARY",
+          "viewRole": "PRIMARY",
+          "slotRect": {
+            "x": 18,
+            "y": 60,
+            "width": 388,
+            "height": 340
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "plan",
+            "elevation"
+          ]
+        },
+        {
+          "slotId": "DETAIL",
+          "viewRole": "DETAIL",
+          "slotRect": {
+            "x": 412,
+            "y": 60,
+            "width": 164,
+            "height": 340
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "detail",
+            "elevation"
+          ]
+        }
+      ],
+      "gapMinMm": 6
+    },
+    {
+      "id": "A1-SINGLE",
+      "frameId": "A1-L-VZ",
+      "name": "A1单主视图",
+      "slots": [
+        {
+          "slotId": "PRIMARY",
+          "viewRole": "PRIMARY",
+          "slotRect": {
+            "x": 22,
+            "y": 72,
+            "width": 797,
+            "height": 495
+          },
+          "titleBandMm": 9,
+          "clipMarginMm": 2,
+          "allowedViewportKinds": [
+            "plan",
+            "elevation",
+            "detail"
+          ]
+        }
+      ],
+      "gapMinMm": 5
+    }
+  ],
+  "rules": {
+    "nonOverlap": "no positive-area slot intersections",
+    "noReservedZoneOverlap": "viewport slot must fit inside drawing zone; not overlap footer and title block",
+    "viewportContentRect": "slot x+margin,y+titleBand+margin,width-2margin,height-titleBand-2margin",
+    "titleBand": "viewport title, local 1:n scale, viewport/section reference, indexed detail number; paper-space annotation",
+    "layoutViewportEntity": "CAD viewport boundary on nonplot layer, viewport remains printable even if boundary layer is nonplot",
+    "layerOverrides": "per viewport VP Freeze/VP Lineweight/VP Plot Style where supported; changes do not mutate model globally",
+    "sameSheetDifferentScales": true,
+    "topology": "paper-space layout 1:1, per viewport model content 1:n; never use plot fit-to-paper"
+  },
+  "applyBehavior": {
+    "locked": true,
+    "noSilentReplace": true,
+    "transactional": true,
+    "preserveUserViewportOverrides": true,
+    "annotationScalesConsistent": true,
+    "refitDoesNotChangeModelGeometry": true,
+    "stableViewportUid": true
+  },
+  "implementationCaution": "Non-rectangular VPCLIP and dynamic view boundary/annotation overhang require actual CAD 2027 tests; example only"
+}
