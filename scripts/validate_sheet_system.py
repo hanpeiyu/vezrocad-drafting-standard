@@ -62,8 +62,8 @@ for rule in matrix["crossDisciplineRules"]:
 compiled=compile_project(project,tax,packages,weights,colors)
 assert compiled["productionReady"] is False
 assert compiled["drawingCount"]==len(compiled["sheetInstances"])
-assert len({s["sheetUid"] for s in compiled["sheetInstances"]})==compiled["drawingCount"]
-assert all(s["displaySheetNo"] is None for s in compiled["sheetInstances"])
+assert len({s["drawingUid"] for s in compiled["sheetInstances"]})==compiled["drawingCount"]
+assert all(s["displaySheetNo"] is None and s["sheetUid"] is None for s in compiled["sheetInstances"])
 reordered=copy.deepcopy(tax)
 reordered["sheetTypes"]=list(reversed(reordered["sheetTypes"]))
 resorted=compile_project(project,reordered,packages,weights,colors)

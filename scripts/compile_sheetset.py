@@ -12,10 +12,10 @@ ROOT=Path(__file__).resolve().parents[1]
 def read(name):
     return json.loads((ROOT/name).read_text(encoding="utf-8"))
 
-_SHEET_UID_NAMESPACE = uuid.UUID("67fa66d5-0adb-44f3-8b1d-9d88a7135b41")
+_DRAWING_UID_NAMESPACE = uuid.UUID("67fa66d5-0adb-44f3-8b1d-9d88a7135b41")
 
-def stable_sheet_uid(project_uid, sheet_type_id, target_ref):
-    """Deterministic ID; no renumbering when index, order or layout changes."""
+def stable_drawing_uid(project_uid, sheet_type_id, target_ref):
+    """Stable logical DRAWING instance UID, not a physical paper sheet UID."""
     identity=json.dumps([str(project_uid),str(sheet_type_id),target_ref],sort_keys=True,ensure_ascii=False,separators=(",",":"))
     return str(uuid.uuid5(_SHEET_UID_NAMESPACE, identity))
 
@@ -106,12 +106,12 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
             unverified=modes[mode]["assetStatus"]!="VERIFIED"
             if unverified:
                 warnings.append({"severity":"BLOCKED","code":"UNVERIFIED_STB","typeId":t["id"],"mode":mode})
-            sheet_uid=stable_sheet_uid(project["id"],t["id"],target)
-            if sheet_uid in seen_uids:
+            drawing_uid=stable_drawing_uid(project["id"],t["id"],target)
+            if drawing_uid in seen_uids:
                 raise ValueError(f"duplicate sheet instance identity in project: {t['id']} {target}")
-            seen_uids.add(sheet_uid)
+            seen_uids.add(drawing_uid)
             emitted.append({
-                "sheetUid":sheet_uid,
+                "drawingUid":drawing_uid,\n                "sheetUid":None, # assigned only after physical page/layout placement; NOT the drawing identity
                 "sheetInstanceId":f"S-{len(emitted)+1:03d}", # legacy preview display ordinal; NOT permanent identity
                 "displaySheetNo":None, # assigned only by actual sheetset ordering / numbering rules
 
@@ -139,7 +139,7 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
         "packageId":package["id"],
         "status":"PROPOSAL_ONLY_NOT_FOR_CONSTRUCTION",
         "drawingCount":len(emitted),
-        "identityPolicy":"sheetUid=stable UUIDv5(projectId,sheetTypeId,targetRef); displaySheetNo separate and mutable",
+        "identityPolicy":"drawingUid=stable UUIDv5(projectId,drawingTypeId,targetRef); sheetUid assigned at physical page layout; displaySheetNo separate",
         "sheetInstances":emitted,
         "diagnostics":warnings,
         "productionReady":False,

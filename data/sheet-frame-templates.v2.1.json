@@ -233,9 +233,10 @@
     "borderMustBeWithinPrintableRect": true,
     "revisionStrategy": "change revision label and issue date without changing persistent sheet UID",
     "titleBlockAttributeStandard": "Block attribute tags stable; can localize visible labels only",
-    "frameLayer": "图纸-图框-打印",
-    "titleBlockLayer": "图纸-图签-打印",
-    "viewportBoundaryLayer": "图纸-视口-不打印",
-    "viewportBoundaryPlot": false
+    "frameLayer": "图纸-图框-边线",
+    "titleBlockLayer": "图纸-图签-表格",
+    "viewportBoundaryLayer": "图纸-视口-边界",
+    "viewportBoundaryPlot": false,
+    "titleBlockTextLayer": "图纸-图签-文字"
   }
 }
