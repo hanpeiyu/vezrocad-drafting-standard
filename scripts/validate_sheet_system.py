@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate drawing taxonomy, per-sheet presentation matrix, and safe dry-run compilation."""
 from pathlib import Path
+import copy
 import json
 import sys
 ROOT=Path(__file__).resolve().parents[1]
@@ -61,6 +62,12 @@ for rule in matrix["crossDisciplineRules"]:
 compiled=compile_project(project,tax,packages,weights,colors)
 assert compiled["productionReady"] is False
 assert compiled["drawingCount"]==len(compiled["sheetInstances"])
+assert len({s["sheetUid"] for s in compiled["sheetInstances"]})==compiled["drawingCount"]
+assert all(s["displaySheetNo"] is None for s in compiled["sheetInstances"])
+reordered=copy.deepcopy(tax)
+reordered["sheetTypes"]=list(reversed(reordered["sheetTypes"]))
+resorted=compile_project(project,reordered,packages,weights,colors)
+assert {s["sheetUid"] for s in compiled["sheetInstances"]}=={s["sheetUid"] for s in resorted["sheetInstances"]}, "sheet UID changed on reordering"
 assert {s["sheetTypeId"] for s in compiled["sheetInstances"]}.issubset(sheetids)
 assert "MEC-HVAC" not in {s["sheetTypeId"] for s in compiled["sheetInstances"]}
 assert "MEC-FLOOR-HEAT" not in {s["sheetTypeId"] for s in compiled["sheetInstances"]}

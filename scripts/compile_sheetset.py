@@ -4,12 +4,20 @@ Dry-run only: does not modify DWG or create validated STB/PDF drawings.
 """
 import argparse
 import json
+import uuid
 from pathlib import Path
 from resolve_scale_fit import resolve
 ROOT=Path(__file__).resolve().parents[1]
 
 def read(name):
     return json.loads((ROOT/name).read_text(encoding="utf-8"))
+
+_SHEET_UID_NAMESPACE = uuid.UUID("67fa66d5-0adb-44f3-8b1d-9d88a7135b41")
+
+def stable_sheet_uid(project_uid, sheet_type_id, target_ref):
+    """Deterministic ID; no renumbering when index, order or layout changes."""
+    identity=json.dumps([str(project_uid),str(sheet_type_id),target_ref],sort_keys=True,ensure_ascii=False,separators=(",",":"))
+    return str(uuid.uuid5(_SHEET_UID_NAMESPACE, identity))
 
 def compile_project(project, tax=None, packages=None, profile=None, colors=None):
     tax=tax or read("data/sheet-taxonomy.v2.1.json")
@@ -52,6 +60,7 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
     if not set(project.get("outputRequest",{}).get("requestedModes",[])).issubset(modes):
         raise ValueError("unknown print output mode")
     emitted=[]
+    seen_uids=set()
     for t in tax["sheetTypes"]:
         if t["id"] not in selection: continue
         instances=t["instances"]
@@ -97,8 +106,15 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
             unverified=modes[mode]["assetStatus"]!="VERIFIED"
             if unverified:
                 warnings.append({"severity":"BLOCKED","code":"UNVERIFIED_STB","typeId":t["id"],"mode":mode})
+            sheet_uid=stable_sheet_uid(project["id"],t["id"],target)
+            if sheet_uid in seen_uids:
+                raise ValueError(f"duplicate sheet instance identity in project: {t['id']} {target}")
+            seen_uids.add(sheet_uid)
             emitted.append({
-                "sheetInstanceId":f"S-{len(emitted)+1:03d}",
+                "sheetUid":sheet_uid,
+                "sheetInstanceId":f"S-{len(emitted)+1:03d}", # legacy preview display ordinal; NOT permanent identity
+                "displaySheetNo":None, # assigned only by actual sheetset ordering / numbering rules
+
                 "sheetTypeId":t["id"],"groupId":t["groupId"],
                 "title":t["name"],"baseViewPresetId":t["baseViewPresetId"],
                 "targetRef":target,
@@ -123,6 +139,7 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
         "packageId":package["id"],
         "status":"PROPOSAL_ONLY_NOT_FOR_CONSTRUCTION",
         "drawingCount":len(emitted),
+        "identityPolicy":"sheetUid=stable UUIDv5(projectId,sheetTypeId,targetRef); displaySheetNo separate and mutable",
         "sheetInstances":emitted,
         "diagnostics":warnings,
         "productionReady":False,
