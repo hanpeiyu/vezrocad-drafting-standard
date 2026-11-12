@@ -1,0 +1,89 @@
+{
+  "schema": "vezrocad.sheetset-project.example.v2.1",
+  "id": "DEMO-APT-001",
+  "projectLabel": "匿名A3家装样例",
+  "templateId": "full-renovation",
+  "status": "example-not-a-construction-deliverable",
+  "features": {
+    "alterWalls": true,
+    "changeDoorsWindows": false,
+    "customCabinet": true,
+    "floorFinish": true,
+    "ceilingWork": true,
+    "wallFinish": true,
+    "wetArea": true,
+    "powerWork": true,
+    "weakCurrentWork": true,
+    "lightingWork": true,
+    "plumbingWork": true,
+    "hvacWork": false,
+    "radiatorWork": true,
+    "floorHeatingWork": false,
+    "specialDetails": true,
+    "floorLevelChange": false
+  },
+  "spaces": [
+    {
+      "roomId": "R01",
+      "name": "客厅"
+    },
+    {
+      "roomId": "R02",
+      "name": "厨房"
+    },
+    {
+      "roomId": "R03",
+      "name": "卫生间"
+    }
+  ],
+  "manualInclude": [
+    "ELV-ROOM",
+    "DET-CONSTRUCTION"
+  ],
+  "manualExclude": [
+    {
+      "sheetTypeId": "SCH-CABINET",
+      "reason": "示例未完成定制柜材料表深化；实际施工交付必须重新评估"
+    }
+  ],
+  "instanceTargets": {
+    "ELV-ROOM": [
+      {
+        "roomId": "R01",
+        "faceId": "N"
+      },
+      {
+        "roomId": "R02",
+        "faceId": "W"
+      }
+    ],
+    "DET-CONSTRUCTION": [
+      {
+        "detailId": "D01"
+      }
+    ],
+    "ELV-CABINET": [
+      {
+        "cabinetId": "C01"
+      }
+    ],
+    "DET-WET": [
+      {
+        "detailId": "D02"
+      }
+    ]
+  },
+  "outputRequest": {
+    "defaultPaper": "A3",
+    "previewOnly": true,
+    "requestedModes": [
+      "GRAY",
+      "COLOR"
+    ],
+    "allowUnverifiedStb": false
+  },
+  "expectedNotes": [
+    "冷水/热水/排水属于专业图纸，具体工程仍需核对",
+    "提案不构成电气暖通设计审查或正式施工图交付"
+  ]
+}

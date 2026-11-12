@@ -1,0 +1,272 @@
+{
+  "schema": "vezrocad.sheet-expression-matrix.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "resolutionOrder": [
+    "safety-hard-rules",
+    "explicit-reviewed-sheet-override",
+    "sheetType.expression",
+    "baseViewPresetId",
+    "representation-role",
+    "CAD-layer/style"
+  ],
+  "actions": [
+    "FOCUS",
+    "CONTEXT",
+    "HIDE",
+    "CONDITIONAL"
+  ],
+  "focusMeaning": "show with full readability via stable style and role weights",
+  "contextMeaning": "show as light reference but never erase mandatory geometry",
+  "hideMeaning": "disable visibility in that sheet view, not delete source",
+  "unknownTagPolicy": "warn-and-review; never silently hide unknown smart object types",
+  "semanticTags": [
+    {
+      "id": "existing-structure",
+      "name": "现有建筑结构",
+      "profession": "建筑"
+    },
+    {
+      "id": "new-structure",
+      "name": "新建墙体",
+      "profession": "拆改"
+    },
+    {
+      "id": "demolition",
+      "name": "拆除范围",
+      "profession": "拆改"
+    },
+    {
+      "id": "door-opening",
+      "name": "门窗洞口",
+      "profession": "建筑"
+    },
+    {
+      "id": "door-window",
+      "name": "门窗",
+      "profession": "建筑"
+    },
+    {
+      "id": "furniture",
+      "name": "活动家具",
+      "profession": "家具"
+    },
+    {
+      "id": "cabinet",
+      "name": "定制柜体",
+      "profession": "定制"
+    },
+    {
+      "id": "cabinet-door",
+      "name": "定制柜门缝",
+      "profession": "定制"
+    },
+    {
+      "id": "fixture",
+      "name": "洁具家电",
+      "profession": "给排"
+    },
+    {
+      "id": "floor-finish",
+      "name": "地面饰面",
+      "profession": "装饰"
+    },
+    {
+      "id": "tile-joint",
+      "name": "地面砖缝",
+      "profession": "装饰"
+    },
+    {
+      "id": "floor-heating",
+      "name": "地暖布管",
+      "profession": "暖通"
+    },
+    {
+      "id": "ceiling",
+      "name": "吊顶",
+      "profession": "装饰"
+    },
+    {
+      "id": "ceiling-edge",
+      "name": "吊顶边缘",
+      "profession": "装饰"
+    },
+    {
+      "id": "lighting-fixture",
+      "name": "灯具",
+      "profession": "电气"
+    },
+    {
+      "id": "socket",
+      "name": "电源插座",
+      "profession": "电气"
+    },
+    {
+      "id": "power-equipment",
+      "name": "用电设备",
+      "profession": "电气"
+    },
+    {
+      "id": "lowvoltage",
+      "name": "弱电网络",
+      "profession": "电气"
+    },
+    {
+      "id": "switch",
+      "name": "开关",
+      "profession": "电气"
+    },
+    {
+      "id": "control-link",
+      "name": "照明控制关系",
+      "profession": "电气"
+    },
+    {
+      "id": "circuit",
+      "name": "配电回路",
+      "profession": "电气"
+    },
+    {
+      "id": "cold-water",
+      "name": "冷水管线",
+      "profession": "给排"
+    },
+    {
+      "id": "hot-water",
+      "name": "热水管线",
+      "profession": "给排"
+    },
+    {
+      "id": "drainage",
+      "name": "排水管线",
+      "profession": "给排"
+    },
+    {
+      "id": "hvac-device",
+      "name": "空调新风设备",
+      "profession": "暖通"
+    },
+    {
+      "id": "hvac-route",
+      "name": "空调风管及管线",
+      "profession": "暖通"
+    },
+    {
+      "id": "radiator",
+      "name": "暖气片",
+      "profession": "暖通"
+    },
+    {
+      "id": "heating-route",
+      "name": "采暖管线",
+      "profession": "暖通"
+    },
+    {
+      "id": "wall-finish",
+      "name": "墙面饰面",
+      "profession": "装饰"
+    },
+    {
+      "id": "material",
+      "name": "材料图例",
+      "profession": "装饰"
+    },
+    {
+      "id": "waterproofing",
+      "name": "防水范围",
+      "profession": "装饰"
+    },
+    {
+      "id": "section",
+      "name": "剖面",
+      "profession": "建筑"
+    },
+    {
+      "id": "elevation-index",
+      "name": "立面索引",
+      "profession": "标注"
+    },
+    {
+      "id": "dimension",
+      "name": "尺寸标注",
+      "profession": "标注"
+    },
+    {
+      "id": "annotation",
+      "name": "技术文字",
+      "profession": "标注"
+    },
+    {
+      "id": "level",
+      "name": "标高",
+      "profession": "标注"
+    }
+  ],
+  "crossDisciplineRules": [
+    {
+      "id": "dimensions-never-silently-hidden",
+      "action": "KEEP",
+      "tags": [
+        "dimension",
+        "annotation",
+        "level"
+      ],
+      "condition": "required-by-sheet",
+      "notes": "图纸尺寸/文字不是随背景图层直接淡化，按类型及尺寸体系独立生成"
+    },
+    {
+      "id": "electricity-background",
+      "action": "CONTEXT",
+      "sheetId": "ELE-POWER",
+      "tags": [
+        "existing-structure",
+        "furniture",
+        "cabinet"
+      ],
+      "notes": "电气线符号优先，家具仅作定位参照"
+    },
+    {
+      "id": "floor-tile-background",
+      "action": "FOCUS",
+      "sheetId": "INT-FLOOR",
+      "tags": [
+        "floor-finish",
+        "tile-joint"
+      ],
+      "notes": "地面铺贴突出，家具不参与遮罩时可隐藏"
+    },
+    {
+      "id": "mask-is-not-category",
+      "action": "KEEP",
+      "tags": [],
+      "condition": "WIPEOUT_MASK coupled to owning visible object",
+      "notes": "遮罩跟随构件的可见性，不能按专业全局提到最上"
+    },
+    {
+      "id": "demolition-readability",
+      "action": "KEEP",
+      "sheetId": "BLD-DEMO",
+      "tags": [
+        "demolition"
+      ],
+      "condition": "linetype+notes required in BW",
+      "notes": "不能仅靠红色和黄色表示拆新"
+    }
+  ],
+  "printResolution": {
+    "defaultSource": "sheetType.suggested.outputMode",
+    "modeSet": [
+      "BW",
+      "GRAY",
+      "COLOR",
+      "PRESENTATION"
+    ],
+    "requiresV21Stb": false,
+    "actualStbReady": false,
+    "unavailableModePolicy": "do-not-plot-as-certified; warn and require reviewed fallback",
+    "lineweightSource": "sheetType.suggested.scaleDenominator -> paper/scales preset -> VP Lineweight",
+    "layoutScale": "1:1"
+  },
+  "notLayerExplosion": "semantic tags do not imply one CAD layer per tag; resolve to existing role/layer rules",
+  "unknownTagAcknowledgement": "new discipline tags proposed, SmartCAD integration requires an approved mapping ADR"
+}

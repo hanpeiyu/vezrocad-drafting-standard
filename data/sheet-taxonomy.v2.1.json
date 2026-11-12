@@ -1,0 +1,1833 @@
+{
+  "schema": "vezrocad.sheet-taxonomy.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "purpose": "home interior drawing types, not mandated statutory drawing list",
+  "scopeFeatures": [
+    {
+      "id": "alterWalls",
+      "name": "拆除或新建隔墙"
+    },
+    {
+      "id": "changeDoorsWindows",
+      "name": "门窗洞口或门窗改造"
+    },
+    {
+      "id": "customCabinet",
+      "name": "定制柜"
+    },
+    {
+      "id": "floorFinish",
+      "name": "地面铺装或饰面变更"
+    },
+    {
+      "id": "ceilingWork",
+      "name": "吊顶施工"
+    },
+    {
+      "id": "wallFinish",
+      "name": "墙面饰面或背景墙施工"
+    },
+    {
+      "id": "wetArea",
+      "name": "厨卫湿区施工"
+    },
+    {
+      "id": "powerWork",
+      "name": "强电插座改动"
+    },
+    {
+      "id": "weakCurrentWork",
+      "name": "弱电及网络改动"
+    },
+    {
+      "id": "lightingWork",
+      "name": "灯具及开关控制变更"
+    },
+    {
+      "id": "plumbingWork",
+      "name": "冷热水或排水改动"
+    },
+    {
+      "id": "hvacWork",
+      "name": "空调或新风改造"
+    },
+    {
+      "id": "radiatorWork",
+      "name": "暖气片施工"
+    },
+    {
+      "id": "floorHeatingWork",
+      "name": "地暖施工"
+    },
+    {
+      "id": "specialDetails",
+      "name": "需特殊节点深化"
+    },
+    {
+      "id": "floorLevelChange",
+      "name": "地面标高调整"
+    }
+  ],
+  "groups": [
+    {
+      "id": "GENERAL",
+      "code": "00",
+      "name": "总说明与目录",
+      "note": "出图管理和交付，不强制对应模型视口"
+    },
+    {
+      "id": "EXISTING",
+      "code": "10",
+      "name": "测量与现状",
+      "note": "真实现场数据与原始结构"
+    },
+    {
+      "id": "BUILD",
+      "code": "20",
+      "name": "拆改与新建",
+      "note": "拆除、新建、洞口、定位"
+    },
+    {
+      "id": "INTERIOR",
+      "code": "30",
+      "name": "布置与装饰",
+      "note": "家具、地面、吊顶、饰面"
+    },
+    {
+      "id": "ELECTRICAL",
+      "code": "40",
+      "name": "电气与弱电",
+      "note": "插座、控制、回路"
+    },
+    {
+      "id": "PLUMBING",
+      "code": "50",
+      "name": "给排水",
+      "note": "冷热水、排水和洁具"
+    },
+    {
+      "id": "MECHANICAL",
+      "code": "60",
+      "name": "暖通采暖",
+      "note": "空调新风、散热器、地暖"
+    },
+    {
+      "id": "ELEVATION",
+      "code": "70",
+      "name": "立面与节点",
+      "note": "索引、房间展开、柜体立面、详图"
+    },
+    {
+      "id": "SCHEDULES",
+      "code": "80",
+      "name": "图例与清单",
+      "note": "材料、门窗和柜体清单"
+    }
+  ],
+  "sheetTypes": [
+    {
+      "id": "GEN-COVER",
+      "groupId": "GENERAL",
+      "name": "图纸封面",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "GEN-INDEX",
+      "groupId": "GENERAL",
+      "name": "施工图目录",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [
+        "GEN-COVER"
+      ],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "GEN-NOTES",
+      "groupId": "GENERAL",
+      "name": "施工说明与通用要求",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "EXI-MEASURE",
+      "groupId": "EXISTING",
+      "name": "原始测量平面图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-existing",
+      "expression": {
+        "focus": [
+          "existing-structure",
+          "dimension"
+        ],
+        "context": [
+          "annotation"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": "原始尺寸须来自现场核实，结构属性不得假设"
+    },
+    {
+      "id": "EXI-DIM",
+      "groupId": "EXISTING",
+      "name": "原始结构尺寸图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-existing",
+      "expression": {
+        "focus": [
+          "existing-structure",
+          "dimension"
+        ],
+        "context": [
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "optional",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [
+        "EXI-MEASURE"
+      ],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "BLD-DEMO",
+      "groupId": "BUILD",
+      "name": "墙体拆除图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-demolition",
+      "expression": {
+        "focus": [
+          "demolition",
+          "existing-structure",
+          "dimension"
+        ],
+        "context": [
+          "new-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "alterWalls"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [
+        "EXI-MEASURE"
+      ],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": "拆除须有文字、线型、图例冗余；承重与否必须人工核实"
+    },
+    {
+      "id": "BLD-NEW",
+      "groupId": "BUILD",
+      "name": "新建墙体及洞口图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-demolition",
+      "expression": {
+        "focus": [
+          "new-structure",
+          "door-opening",
+          "dimension"
+        ],
+        "context": [
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "alterWalls"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [
+        "EXI-MEASURE"
+      ],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "BLD-DIM",
+      "groupId": "BUILD",
+      "name": "墙体定位尺寸图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-existing",
+      "expression": {
+        "focus": [
+          "new-structure",
+          "existing-structure",
+          "dimension"
+        ],
+        "context": [
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "alterWalls"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [
+        "BLD-NEW"
+      ],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "BLD-OPEN",
+      "groupId": "BUILD",
+      "name": "门窗及洞口定位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-existing",
+      "expression": {
+        "focus": [
+          "door-opening",
+          "door-window",
+          "dimension"
+        ],
+        "context": [
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "changeDoorsWindows"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-LAYOUT",
+      "groupId": "INTERIOR",
+      "name": "平面布置图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-furniture",
+      "expression": {
+        "focus": [
+          "furniture",
+          "cabinet",
+          "door-window",
+          "fixture"
+        ],
+        "context": [
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-DIM",
+      "groupId": "INTERIOR",
+      "name": "平面尺寸与家具定位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-furniture",
+      "expression": {
+        "focus": [
+          "dimension",
+          "cabinet",
+          "door-window"
+        ],
+        "context": [
+          "furniture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": "施工尺寸与完成面尺寸需明确基准，不可仅引用设计方案尺寸"
+    },
+    {
+      "id": "INT-FLOOR",
+      "groupId": "INTERIOR",
+      "name": "地面铺装及起铺定位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-floor",
+      "expression": {
+        "focus": [
+          "floor-finish",
+          "tile-joint",
+          "dimension"
+        ],
+        "context": [
+          "existing-structure",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "floorFinish"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-LEVEL",
+      "groupId": "INTERIOR",
+      "name": "地面标高及找平图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-floor",
+      "expression": {
+        "focus": [
+          "level",
+          "dimension",
+          "floor-finish"
+        ],
+        "context": [
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "floorLevelChange"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-CEIL",
+      "groupId": "INTERIOR",
+      "name": "吊顶布置图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-ceiling",
+      "expression": {
+        "focus": [
+          "ceiling",
+          "ceiling-edge",
+          "fixture"
+        ],
+        "context": [
+          "existing-structure",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "ceilingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-CEIL-DIM",
+      "groupId": "INTERIOR",
+      "name": "吊顶定位尺寸及标高图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-ceiling",
+      "expression": {
+        "focus": [
+          "ceiling",
+          "level",
+          "dimension"
+        ],
+        "context": [
+          "lighting-fixture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "ceilingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-FINISH",
+      "groupId": "INTERIOR",
+      "name": "墙面饰面与材料分区图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-furniture",
+      "expression": {
+        "focus": [
+          "wall-finish",
+          "material",
+          "elevation-index"
+        ],
+        "context": [
+          "furniture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "wallFinish"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-CABINET",
+      "groupId": "INTERIOR",
+      "name": "定制柜体布置与定位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-furniture",
+      "expression": {
+        "focus": [
+          "cabinet",
+          "dimension",
+          "door-window"
+        ],
+        "context": [
+          "existing-structure",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "customCabinet"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "INT-WATERPROOF",
+      "groupId": "INTERIOR",
+      "name": "厨卫防水范围及节点索引图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-floor",
+      "expression": {
+        "focus": [
+          "waterproofing",
+          "level",
+          "dimension"
+        ],
+        "context": [
+          "existing-structure",
+          "fixture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "wetArea"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": "防水做法及范围需依据具体场地和施工要求确认"
+    },
+    {
+      "id": "ELE-POWER",
+      "groupId": "ELECTRICAL",
+      "name": "强电插座及设备点位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-electrical",
+      "expression": {
+        "focus": [
+          "socket",
+          "power-equipment",
+          "dimension"
+        ],
+        "context": [
+          "furniture",
+          "cabinet",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "powerWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "ELE-LOW",
+      "groupId": "ELECTRICAL",
+      "name": "网络电视及弱电点位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-electrical",
+      "expression": {
+        "focus": [
+          "lowvoltage",
+          "dimension"
+        ],
+        "context": [
+          "furniture",
+          "cabinet",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "weakCurrentWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "ELE-LIGHT",
+      "groupId": "ELECTRICAL",
+      "name": "照明灯位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-ceiling",
+      "expression": {
+        "focus": [
+          "lighting-fixture",
+          "dimension",
+          "ceiling"
+        ],
+        "context": [
+          "existing-structure",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "lightingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "ELE-SWITCH",
+      "groupId": "ELECTRICAL",
+      "name": "开关控制与回路关系图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-electrical",
+      "expression": {
+        "focus": [
+          "switch",
+          "lighting-fixture",
+          "control-link",
+          "dimension"
+        ],
+        "context": [
+          "furniture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "lightingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": "控制连线属于逻辑关系，不得误读为实际暗线走向"
+    },
+    {
+      "id": "ELE-CIRCUIT",
+      "groupId": "ELECTRICAL",
+      "name": "配电回路及系统图",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [
+          "circuit"
+        ],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "optional",
+        "featuresAny": [
+          "powerWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": true,
+        "reason": "须由具备相应能力的电气专业人员核对负载、回路及保护"
+      },
+      "notes": ""
+    },
+    {
+      "id": "PLB-WATER",
+      "groupId": "PLUMBING",
+      "name": "冷热水点位布置图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-plumbing",
+      "expression": {
+        "focus": [
+          "cold-water",
+          "hot-water",
+          "fixture",
+          "dimension"
+        ],
+        "context": [
+          "existing-structure",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "plumbingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "PLB-DRAIN",
+      "groupId": "PLUMBING",
+      "name": "排水点位与排水方向图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-plumbing",
+      "expression": {
+        "focus": [
+          "drainage",
+          "fixture",
+          "dimension",
+          "level"
+        ],
+        "context": [
+          "existing-structure",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "plumbingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "PLB-FIXTURE",
+      "groupId": "PLUMBING",
+      "name": "厨卫洁具定位安装图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-plumbing",
+      "expression": {
+        "focus": [
+          "fixture",
+          "dimension"
+        ],
+        "context": [
+          "cabinet",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "wetArea"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "MEC-HVAC",
+      "groupId": "MECHANICAL",
+      "name": "空调及新风设备布置图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-ceiling",
+      "expression": {
+        "focus": [
+          "hvac-device",
+          "hvac-route",
+          "dimension"
+        ],
+        "context": [
+          "ceiling",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "hvacWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": true,
+        "reason": "设备尺寸、管道、冷凝水排放、检修空间需经专业校核"
+      },
+      "notes": ""
+    },
+    {
+      "id": "MEC-RADIATOR",
+      "groupId": "MECHANICAL",
+      "name": "暖气片与管路点位图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-plumbing",
+      "expression": {
+        "focus": [
+          "radiator",
+          "heating-route",
+          "dimension"
+        ],
+        "context": [
+          "furniture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "radiatorWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": true,
+        "reason": "供回水及检修条件需要核对"
+      },
+      "notes": ""
+    },
+    {
+      "id": "MEC-FLOOR-HEAT",
+      "groupId": "MECHANICAL",
+      "name": "地暖铺设与分集水器图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-floor",
+      "expression": {
+        "focus": [
+          "floor-heating",
+          "heating-route",
+          "dimension"
+        ],
+        "context": [
+          "furniture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "COLOR"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "floorHeatingWork"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": true,
+        "reason": "热工、水力及相关构造参数需专业校核"
+      },
+      "notes": ""
+    },
+    {
+      "id": "ELV-INDEX",
+      "groupId": "ELEVATION",
+      "name": "立面索引平面图",
+      "kind": "model-view",
+      "baseViewPresetId": "plan-furniture",
+      "expression": {
+        "focus": [
+          "elevation-index",
+          "dimension",
+          "door-window"
+        ],
+        "context": [
+          "furniture",
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 50,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "ELV-ROOM",
+      "groupId": "ELEVATION",
+      "name": "室内各墙面立面图",
+      "kind": "model-view",
+      "baseViewPresetId": "elevation",
+      "expression": {
+        "focus": [
+          "wall-finish",
+          "cabinet",
+          "door-window",
+          "dimension"
+        ],
+        "context": [
+          "material",
+          "furniture"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 20,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "optional",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "room-wall",
+        "requiresReference": [
+          "roomId",
+          "faceId"
+        ]
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": "是否出图按墙面造型/复杂程度定；同类立面可复用模板"
+    },
+    {
+      "id": "ELV-CABINET",
+      "groupId": "ELEVATION",
+      "name": "定制柜立面展开图",
+      "kind": "model-view",
+      "baseViewPresetId": "elevation",
+      "expression": {
+        "focus": [
+          "cabinet",
+          "cabinet-door",
+          "dimension"
+        ],
+        "context": [
+          "material",
+          "wall-finish"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 20,
+        "outputMode": "GRAY"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "customCabinet"
+        ]
+      },
+      "instances": {
+        "repeatBy": "cabinet-instance",
+        "requiresReference": [
+          "cabinetId"
+        ]
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "DET-CONSTRUCTION",
+      "groupId": "ELEVATION",
+      "name": "施工剖面与节点详图",
+      "kind": "model-view",
+      "baseViewPresetId": "detail",
+      "expression": {
+        "focus": [
+          "section",
+          "material",
+          "dimension",
+          "annotation"
+        ],
+        "context": [
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 10,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "optional",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "detail-instance",
+        "requiresReference": [
+          "detailId"
+        ]
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "DET-WET",
+      "groupId": "ELEVATION",
+      "name": "厨卫防水与地漏等节点详图",
+      "kind": "model-view",
+      "baseViewPresetId": "detail",
+      "expression": {
+        "focus": [
+          "section",
+          "waterproofing",
+          "drainage",
+          "dimension"
+        ],
+        "context": [
+          "existing-structure"
+        ],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": 10,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "wetArea"
+        ]
+      },
+      "instances": {
+        "repeatBy": "detail-instance",
+        "requiresReference": [
+          "detailId"
+        ]
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "SCH-MATERIAL",
+      "groupId": "SCHEDULES",
+      "name": "主要材料与饰面清单",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [
+          "material"
+        ],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "core",
+        "featuresAny": []
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "SCH-DOOR",
+      "groupId": "SCHEDULES",
+      "name": "门窗型号与数量表",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [
+          "door-window"
+        ],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "changeDoorsWindows"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    },
+    {
+      "id": "SCH-CABINET",
+      "groupId": "SCHEDULES",
+      "name": "定制柜门板五金清单",
+      "kind": "document",
+      "baseViewPresetId": null,
+      "expression": {
+        "focus": [
+          "cabinet"
+        ],
+        "context": [],
+        "hide": [],
+        "requiredAnnotations": [
+          "sheet-title",
+          "north-or-orientation-when-applicable",
+          "dimension-where-needed"
+        ],
+        "lineworkPriority": [],
+        "drawOrderExtra": []
+      },
+      "suggested": {
+        "paper": "A3",
+        "scaleDenominator": null,
+        "outputMode": "BW"
+      },
+      "trigger": {
+        "type": "feature",
+        "featuresAny": [
+          "customCabinet"
+        ]
+      },
+      "instances": {
+        "repeatBy": "single",
+        "requiresReference": []
+      },
+      "prerequisites": [],
+      "review": {
+        "specialistApproval": false,
+        "reason": ""
+      },
+      "notes": ""
+    }
+  ],
+  "idRule": "Immutable technical ID; Chinese names and sheet numbers are presentation only",
+  "drawingNumbering": {
+    "groupCodeFirst": true,
+    "assignAtSheetSetCompile": true,
+    "nonDestructive": true,
+    "repeatedInstancesNeedStableId": true
+  },
+  "ruleSemantics": {
+    "core": "project-level recommended baseline, NOT a legal mandate",
+    "feature": "include if project scope has at least one matching feature",
+    "optional": "manual choice; never assume a missing specialist drawing is irrelevant"
+  },
+  "productionState": "metadata definitions only; no drawing is generated"
+}
