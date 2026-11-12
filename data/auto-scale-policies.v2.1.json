@@ -1,0 +1,87 @@
+{
+  "schema": "vezrocad.auto-scale-policies.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "purpose": "choose fit-compatible sheet viewport scale based on model extents and usable paper region",
+  "expression": "modelBoundsMm / denominator + extraAnnotationReserveMm <= usableViewportMm (rotation aware)",
+  "policyPriority": [
+    "user-locked-scale-with-overflow-warning",
+    "prefer-readable-denominator",
+    "rotate-content-with-review",
+    "try-larger-page",
+    "split-to-overview-and-detail"
+  ],
+  "policies": [
+    {
+      "id": "plan-standard",
+      "viewIds": [
+        "plan-existing",
+        "plan-demolition",
+        "plan-furniture",
+        "plan-floor",
+        "plan-ceiling",
+        "plan-electrical",
+        "plan-plumbing"
+      ],
+      "candidateDenominators": [
+        50,
+        75,
+        100
+      ],
+      "preferredDenominator": 50,
+      "allow90DegreeRotation": true,
+      "policyCeiling": 100,
+      "ifNoFit": "recommend-larger-sheet-or-split",
+      "skipUnsupportedLineweightPreset": true
+    },
+    {
+      "id": "elevation-standard",
+      "viewIds": [
+        "elevation"
+      ],
+      "candidateDenominators": [
+        20,
+        25,
+        50
+      ],
+      "preferredDenominator": 20,
+      "allow90DegreeRotation": false,
+      "policyCeiling": 50,
+      "ifNoFit": "split-into-room-walls",
+      "skipUnsupportedLineweightPreset": true
+    },
+    {
+      "id": "detail-standard",
+      "viewIds": [
+        "detail"
+      ],
+      "candidateDenominators": [
+        5,
+        10,
+        20,
+        25
+      ],
+      "preferredDenominator": 10,
+      "allow90DegreeRotation": false,
+      "policyCeiling": 25,
+      "ifNoFit": "split-into-detail-sections",
+      "skipUnsupportedLineweightPreset": true
+    }
+  ],
+  "algorithm": "For each allowed paper in order and each denominator candidate in policy order, try permitted rotations. Return first fit with an existing paper lineweight profile. If no fit, produce no scale choice and recommend split or manual exception.",
+  "selectionStatus": [
+    "fit-suggested",
+    "locked-overflow",
+    "insufficient-geometry",
+    "no-fit",
+    "missing-lineweight-profile"
+  ],
+  "criticalConstraints": [
+    "preferred scale is not a mandatory scale",
+    "never silently alter user-locked scale",
+    "no geometry or true measurements changed",
+    "print proportion is decided per viewport, not only per project",
+    "a larger sheet may preserve design readability instead of always reducing scale"
+  ],
+  "published": false
+}

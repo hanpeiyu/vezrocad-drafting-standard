@@ -1,0 +1,151 @@
+{
+  "schema": "vezrocad.scale-fit-cases.v2.1",
+  "version": "2.1.0-proposal",
+  "cases": [
+    {
+      "id": "small-a3-50",
+      "viewId": "plan-furniture",
+      "widthMm": 12000,
+      "heightMm": 9000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A3",
+        "denominator": 50
+      }
+    },
+    {
+      "id": "boundary-a3-50",
+      "viewId": "plan-furniture",
+      "widthMm": 18000,
+      "heightMm": 12000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A3",
+        "denominator": 50
+      }
+    },
+    {
+      "id": "larger-a3-75",
+      "viewId": "plan-furniture",
+      "widthMm": 24000,
+      "heightMm": 12000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A3",
+        "denominator": 75
+      }
+    },
+    {
+      "id": "large-a3-100",
+      "viewId": "plan-furniture",
+      "widthMm": 35000,
+      "heightMm": 20000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A3",
+        "denominator": 100
+      }
+    },
+    {
+      "id": "oversize-a2-100",
+      "viewId": "plan-furniture",
+      "widthMm": 50000,
+      "heightMm": 30000,
+      "allowedPaperLayouts": [
+        "A3-L",
+        "A2-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A2",
+        "denominator": 100
+      }
+    },
+    {
+      "id": "oversize-a3-only",
+      "viewId": "plan-furniture",
+      "widthMm": 50000,
+      "heightMm": 30000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "no-fit"
+      }
+    },
+    {
+      "id": "annotation-reserve",
+      "viewId": "plan-furniture",
+      "widthMm": 18000,
+      "heightMm": 12000,
+      "annotationReserveWidthMm": 15,
+      "annotationReserveHeightMm": 15,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A3",
+        "denominator": 75
+      }
+    },
+    {
+      "id": "tall-needs-rotation",
+      "viewId": "plan-furniture",
+      "widthMm": 12000,
+      "heightMm": 24000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "expected": {
+        "status": "fit-suggested",
+        "paperId": "A3",
+        "denominator": 75,
+        "rotationDegrees": 90
+      }
+    },
+    {
+      "id": "very-large-split",
+      "viewId": "plan-furniture",
+      "widthMm": 90000,
+      "heightMm": 40000,
+      "allowedPaperLayouts": [
+        "A3-L",
+        "A2-L",
+        "A1-L"
+      ],
+      "expected": {
+        "status": "no-fit"
+      }
+    },
+    {
+      "id": "manual-lock-overflow",
+      "viewId": "plan-furniture",
+      "widthMm": 24000,
+      "heightMm": 12000,
+      "allowedPaperLayouts": [
+        "A3-L"
+      ],
+      "locked": {
+        "layoutId": "A3-L",
+        "denominator": 50,
+        "rotationDegrees": 0
+      },
+      "expected": {
+        "status": "locked-overflow"
+      }
+    }
+  ]
+}
