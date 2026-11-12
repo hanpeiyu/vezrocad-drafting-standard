@@ -1,0 +1,39 @@
+{
+  "schema": "vezrocad.detail-visibility.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "formula": "paperFeatureMm = modelFeatureMm / viewportScaleDenominator",
+  "thresholds": [
+    {
+      "maxPaperFeatureMm": 0.3,
+      "action": "suggest simplify ONLY unimportant details"
+    },
+    {
+      "minPaperFeatureMm": 0.3,
+      "maxPaperFeatureMm": 0.6,
+      "action": "reduce visual density / use thin stroke"
+    },
+    {
+      "minPaperFeatureMm": 0.6,
+      "action": "generally retain detail"
+    }
+  ],
+  "neverAutoHide": [
+    "CUT_HEAVY",
+    "DIMENSION",
+    "ANNOTATION",
+    "mandatory safety or construction information"
+  ],
+  "example": {
+    "modelGapMm": 20,
+    "paperAt1to20": 1,
+    "paperAt1to50": 0.4,
+    "paperAt1to100": 0.2
+  },
+  "invariants": [
+    "LOD never destroys original model geometry",
+    "annotation and dimension measurements remain exact",
+    "manual approval before hiding construction-critical information"
+  ],
+  "releaseGate": "Thresholds require calibration with real printed samples"
+}

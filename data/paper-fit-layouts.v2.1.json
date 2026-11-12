@@ -1,0 +1,55 @@
+{
+  "schema": "vezrocad.paper-fit.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "units": "physical paper mm",
+  "assumptions": "example net viewport rectangles; NOT authoritative printer margins; replace by measured title-block, printer margins and occupied annotation zones",
+  "paperLayouts": [
+    {
+      "id": "A3-L",
+      "paperId": "A3",
+      "orientation": "landscape",
+      "paperWidthMm": 420,
+      "paperHeightMm": 297,
+      "usableViewportWidthMm": 360,
+      "usableViewportHeightMm": 240,
+      "verifiedOnDevice": false
+    },
+    {
+      "id": "A2-L",
+      "paperId": "A2",
+      "orientation": "landscape",
+      "paperWidthMm": 594,
+      "paperHeightMm": 420,
+      "usableViewportWidthMm": 520,
+      "usableViewportHeightMm": 350,
+      "verifiedOnDevice": false
+    },
+    {
+      "id": "A1-L",
+      "paperId": "A1",
+      "orientation": "landscape",
+      "paperWidthMm": 841,
+      "paperHeightMm": 594,
+      "usableViewportWidthMm": 760,
+      "usableViewportHeightMm": 500,
+      "verifiedOnDevice": false
+    }
+  ],
+  "layoutNotes": [
+    "Usable viewport is after layout margins, title block, legends; no fixed value may be assumed for every company's template",
+    "Additional dimension/annotation padding can be supplied per viewport",
+    "Layout plotting is 1:1, viewport uses 1:n; no automatic plot Scale Lineweights"
+  ],
+  "suggestedLayoutOrder": [
+    "A3-L",
+    "A2-L",
+    "A1-L"
+  ],
+  "allowedPlanRotationDegrees": [
+    0,
+    90
+  ],
+  "geometryBoundsSource": "actual rendered content bounds per target sheet/space with related annotations and necessary dimensions; NOT global entire model bounds for every sheet",
+  "previewOnly": true
+}

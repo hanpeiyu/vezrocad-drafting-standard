@@ -1,0 +1,55 @@
+{
+  "schema": "vezrocad.drawing-sheet-identity.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "concepts": [
+    {
+      "id": "drawingTypeId",
+      "example": "INT-LAYOUT",
+      "meaning": "stable logical drawing category; formerly referred to as sheet type; never physical page ID"
+    },
+    {
+      "id": "drawingUid",
+      "example": "uuidv5(project UID, drawingTypeId, targetRef)",
+      "meaning": "logical drawing content instance, stable across pagination and reorder"
+    },
+    {
+      "id": "sheetUid",
+      "example": "uuidv4 upon page creation",
+      "meaning": "physical paper page and title block in CAD layout; can contain multiple drawingUids"
+    },
+    {
+      "id": "viewportUid",
+      "example": "uuidv4 upon viewport creation",
+      "meaning": "viewport placement on a sheet; points to a drawingUid and slot"
+    },
+    {
+      "id": "objectUid",
+      "example": "per DWG project stable object identity",
+      "meaning": "business component identity; CAD Handle only a per-file locator"
+    },
+    {
+      "id": "sheetNo",
+      "example": "D-03",
+      "meaning": "mutable user-facing sheet number / human sequence, independent of sheetUid"
+    },
+    {
+      "id": "revisionLabel",
+      "example": "A",
+      "meaning": "mutable issuance/revision status for a sheet page without changing its UID"
+    }
+  ],
+  "cardinality": [
+    "project 1 -> N drawing instances",
+    "project 1 -> N physical sheet pages",
+    "sheet 1 -> N viewport instances",
+    "viewport N -> 1 drawing instance",
+    "one drawing instance -> N viewport placements across pages",
+    "object N <-> N drawing instances via explicit dependency graph"
+  ],
+  "canonicalization": "targetRef JSON is sorted by key with strict stable semantic IDs; no DWG Handle or screen layer name in permanent identity",
+  "copyPolicy": "Save As and project cloning must mint a new project UID and explicitly remap object/drawing instances; do not blindly preserve conflicting UIDs",
+  "renamePolicy": "display sheet number, title or page order may change without changing drawingUid/sheetUid",
+  "migration": "previous prototype sheetUid field in compile_sheetset was incorrectly used as logical drawing identity; renamed drawingUid. Legacy sheetInstanceId=S-001 remains preview ordinal only",
+  "proposalOnly": true
+}

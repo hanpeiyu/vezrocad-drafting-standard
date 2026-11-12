@@ -1,0 +1,69 @@
+{
+  "schema": "vezrocad.sheetset-presets.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "templates": [
+    {
+      "id": "full-renovation",
+      "name": "完整家装施工图包",
+      "description": "基准包 + 根据项目实际改造特征纳入专业图纸",
+      "includeTriggerTypes": [
+        "core",
+        "feature"
+      ],
+      "additionalCandidateTypes": [
+        "EXI-DIM",
+        "ELV-ROOM",
+        "DET-CONSTRUCTION",
+        "ELE-CIRCUIT"
+      ],
+      "defaultPage": "A3",
+      "defaultMode": "GRAY"
+    },
+    {
+      "id": "partial-renovation",
+      "name": "局部改造图包",
+      "description": "以受影响空间/专业输出，未施工区域不强制生成",
+      "includeTriggerTypes": [
+        "core",
+        "feature"
+      ],
+      "additionalCandidateTypes": [
+        "ELV-ROOM",
+        "DET-CONSTRUCTION"
+      ],
+      "defaultPage": "A3",
+      "defaultMode": "GRAY",
+      "requiresSpaceFilter": true
+    },
+    {
+      "id": "concept",
+      "name": "方案展示图包",
+      "description": "仅方案与沟通，不应标注施工图完备",
+      "explicitSheetTypeIds": [
+        "GEN-COVER",
+        "GEN-INDEX",
+        "INT-LAYOUT",
+        "SCH-MATERIAL"
+      ],
+      "defaultPage": "A3",
+      "defaultMode": "PRESENTATION",
+      "notForConstruction": true
+    }
+  ],
+  "overrides": [
+    "include",
+    "exclude-with-reason",
+    "repeat-space-instances",
+    "change-output-mode",
+    "change-scale-using-known-preset",
+    "annotate-manual-review"
+  ],
+  "guardrails": [
+    "User can exclude proposed core sheets only with documented reason",
+    "No auto-created electrical system design or technical signoff",
+    "Feature false never auto-creates drawings of that system",
+    "Each listed sheet needs instanceId and stable typeId; repeated elevations require room/wall identity",
+    "A drawing index must be generated from actual emitted instances, not full taxonomy"
+  ]
+}

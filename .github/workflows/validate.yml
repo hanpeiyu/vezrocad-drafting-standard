@@ -1,9 +1,9 @@
 name: Validate drafting standard data
 on:
   push:
-    paths: ["data/**", "scripts/**", ".github/workflows/validate.yml"]
+    paths: ["data/**", "scripts/**", "schema/**", "examples/**", ".github/workflows/validate.yml"]
   pull_request:
-    paths: ["data/**", "scripts/**", ".github/workflows/validate.yml"]
+    paths: ["data/**", "scripts/**", "schema/**", "examples/**", ".github/workflows/validate.yml"]
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -14,4 +14,8 @@ jobs:
           python-version: "3.11"
       - run: pip install ezdxf==1.4.4
       - run: python scripts/validate.py
+      - run: python scripts/validate_presentation.py
+      - run: python scripts/validate_sheet_system.py
+      - run: python scripts/validate_scale_fit.py
+      - run: python scripts/validate_sheet_frames.py
       - run: python scripts/verify_binary_assets.py

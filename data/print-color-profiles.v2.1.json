@@ -1,0 +1,160 @@
+{
+  "schema": "vezrocad.print-color-profiles.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "design-only",
+  "stableStyleNames": [
+    "VZ-MAIN",
+    "VZ-SOFT",
+    "VZ-FAINT",
+    "VZ-FILL",
+    "VZ-ACCENT",
+    "VZ-MASK",
+    "VZ-ARCH",
+    "VZ-NEW",
+    "VZ-DEMO",
+    "VZ-ELECTRICAL",
+    "VZ-COLD-WATER",
+    "VZ-HOT-WATER",
+    "VZ-HVAC",
+    "VZ-UNDERLAY"
+  ],
+  "legacyV2Styles": [
+    "VZ-MAIN",
+    "VZ-SOFT",
+    "VZ-FAINT",
+    "VZ-FILL",
+    "VZ-ACCENT",
+    "VZ-MASK"
+  ],
+  "proposedV21Styles": [
+    "VZ-ARCH",
+    "VZ-NEW",
+    "VZ-DEMO",
+    "VZ-ELECTRICAL",
+    "VZ-COLD-WATER",
+    "VZ-HOT-WATER",
+    "VZ-HVAC",
+    "VZ-UNDERLAY"
+  ],
+  "screenPalette": {
+    "policy": "preserve the v2 layer ACI/TrueColor for editing, independent from named STB output; do not recolor model on mode switching"
+  },
+  "outputModes": {
+    "BW": {
+      "targetStbFile": "VZ-BW-v2.1.stb",
+      "assetStatus": "DESIGN_ONLY_NOT_GENERATED",
+      "stylePrintColor": {
+        "VZ-MAIN": "#000000",
+        "VZ-SOFT": "#000000",
+        "VZ-FAINT": "#000000",
+        "VZ-FILL": "#000000",
+        "VZ-ACCENT": "#000000",
+        "VZ-MASK": "OBJECT",
+        "VZ-ARCH": "#000000",
+        "VZ-NEW": "#000000",
+        "VZ-DEMO": "#000000",
+        "VZ-ELECTRICAL": "#000000",
+        "VZ-COLD-WATER": "#000000",
+        "VZ-HOT-WATER": "#000000",
+        "VZ-HVAC": "#000000",
+        "VZ-UNDERLAY": "#000000"
+      },
+      "lineweight": "USE_OBJECT",
+      "linetype": "USE_OBJECT",
+      "screeningPercent": 100
+    },
+    "GRAY": {
+      "targetStbFile": "VZ-GRAY-v2.1.stb",
+      "assetStatus": "DESIGN_ONLY_NOT_GENERATED",
+      "stylePrintColor": {
+        "VZ-MAIN": "#101010",
+        "VZ-SOFT": "#666666",
+        "VZ-FAINT": "#AAAAAA",
+        "VZ-FILL": "#D0D0D0",
+        "VZ-ACCENT": "#202020",
+        "VZ-MASK": "OBJECT",
+        "VZ-ARCH": "#161616",
+        "VZ-NEW": "#333333",
+        "VZ-DEMO": "#777777",
+        "VZ-ELECTRICAL": "#393939",
+        "VZ-COLD-WATER": "#555555",
+        "VZ-HOT-WATER": "#555555",
+        "VZ-HVAC": "#666666",
+        "VZ-UNDERLAY": "#BBBBBB"
+      },
+      "lineweight": "USE_OBJECT",
+      "linetype": "USE_OBJECT",
+      "screeningPercent": 100
+    },
+    "COLOR": {
+      "targetStbFile": "VZ-COLOR-v2.1.stb",
+      "assetStatus": "DESIGN_ONLY_NOT_GENERATED",
+      "stylePrintColor": {
+        "VZ-MAIN": "#24292C",
+        "VZ-SOFT": "#70777A",
+        "VZ-FAINT": "#AFB4B3",
+        "VZ-FILL": "#D8DEDD",
+        "VZ-ACCENT": "#A76F59",
+        "VZ-MASK": "OBJECT",
+        "VZ-ARCH": "#41484C",
+        "VZ-NEW": "#B46D54",
+        "VZ-DEMO": "#B25D62",
+        "VZ-ELECTRICAL": "#5B8297",
+        "VZ-COLD-WATER": "#417DAD",
+        "VZ-HOT-WATER": "#BA745B",
+        "VZ-HVAC": "#778C7D",
+        "VZ-UNDERLAY": "#B5B9B7"
+      },
+      "lineweight": "USE_OBJECT",
+      "linetype": "USE_OBJECT",
+      "screeningPercent": 100
+    },
+    "PRESENTATION": {
+      "targetStbFile": "VZ-PRESENTATION-v2.1.stb",
+      "assetStatus": "DESIGN_ONLY_NOT_GENERATED",
+      "stylePrintColor": {
+        "VZ-MAIN": "#615B54",
+        "VZ-SOFT": "#89867E",
+        "VZ-FAINT": "#C2BDB4",
+        "VZ-FILL": "#DED8CB",
+        "VZ-ACCENT": "#A78B73",
+        "VZ-MASK": "OBJECT",
+        "VZ-ARCH": "#665F57",
+        "VZ-NEW": "#B38A6E",
+        "VZ-DEMO": "#C39A92",
+        "VZ-ELECTRICAL": "#92AAB0",
+        "VZ-COLD-WATER": "#94B3C4",
+        "VZ-HOT-WATER": "#CF9C8A",
+        "VZ-HVAC": "#9FAE9F",
+        "VZ-UNDERLAY": "#D2CEC5"
+      },
+      "lineweight": "USE_OBJECT",
+      "linetype": "USE_OBJECT",
+      "screeningPercent": 100
+    }
+  },
+  "semanticStyleSuggestions": {
+    "wall": "VZ-ARCH",
+    "wall.new": "VZ-NEW",
+    "wall.demolition": "VZ-DEMO",
+    "electrical": "VZ-ELECTRICAL",
+    "plumbing.cold": "VZ-COLD-WATER",
+    "plumbing.hot": "VZ-HOT-WATER",
+    "hvac": "VZ-HVAC",
+    "background": "VZ-UNDERLAY"
+  },
+  "principles": [
+    "Every future binary STB MUST contain identical named style set",
+    "Normal named style cannot be recolored: audit and warn",
+    "All styles use object lineweight and linetype to keep weight independent",
+    "VP Plot Style overrides are possible only in STB drawings; test display visual style and nested blocks",
+    "Different A3/A2 print scales do NOT imply separate STB binaries",
+    "VZ-MASK uses OBJECT and mask geometry, not black fill"
+  ],
+  "existingBinaryAssets": [
+    "assets/stb/VZ-A3-BW.stb",
+    "assets/stb/VZ-A3-COLOR.stb"
+  ],
+  "compatibilityNotice": "Old binary STBs have only six v2 styles. Never assign v2.1 new names before verified STB binaries are generated and deployed.",
+  "releaseGate": "No new v2.1 STB binary shipped; must test real DWG PDF and paper before adoption"
+}

@@ -1,0 +1,112 @@
+{
+  "schema": "vezrocad.viewport-standards.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "viewportKinds": [
+    {
+      "id": "plan",
+      "name": "平面视口",
+      "viewIds": [
+        "plan-existing",
+        "plan-demolition",
+        "plan-furniture",
+        "plan-floor",
+        "plan-ceiling",
+        "plan-electrical",
+        "plan-plumbing"
+      ],
+      "defaultOrientation": "floorplan-ucs",
+      "rotationPolicy": "allow-0-90-if-labels-and-north-safe",
+      "annotationScale": "match-viewport",
+      "visibility": "sheet-specific and ByLayer",
+      "requiredFields": [
+        "viewportUid",
+        "sheetUid",
+        "sourceViewId",
+        "clip",
+        "scaleDenominator",
+        "modelCenter",
+        "rotationDegrees"
+      ]
+    },
+    {
+      "id": "elevation",
+      "name": "立面视口",
+      "viewIds": [
+        "elevation"
+      ],
+      "defaultOrientation": "wall-plane-ucs",
+      "rotationPolicy": "keep-vertical-upright",
+      "annotationScale": "match-viewport",
+      "visibility": "elevation focus+context",
+      "requiredFields": [
+        "viewportUid",
+        "sheetUid",
+        "roomId",
+        "faceId",
+        "scaleDenominator",
+        "wallCoordinateSystem"
+      ]
+    },
+    {
+      "id": "detail",
+      "name": "节点视口",
+      "viewIds": [
+        "detail"
+      ],
+      "defaultOrientation": "detail-ucs",
+      "rotationPolicy": "explicit only",
+      "annotationScale": "match-viewport",
+      "visibility": "detail focus+context",
+      "requiredFields": [
+        "viewportUid",
+        "sheetUid",
+        "detailId",
+        "clip",
+        "scaleDenominator"
+      ]
+    }
+  ],
+  "autoCADInvariants": {
+    "viewportLayer": "图纸-视口-不打印",
+    "viewportLayerPlots": false,
+    "viewportEntityMustStillPlot": true,
+    "displayLocked": true,
+    "layoutPlotAtOneToOne": true,
+    "plotFitToPaper": false,
+    "standardScale": "1/n where model space mm and paper space mm, validate UCS/units",
+    "geometryScale": "never scale model entities for paper fit",
+    "suggestedVariableChecks": [
+      "PSTYLEMODE=0",
+      "PSLTSCALE=1",
+      "MSLTSCALE=1",
+      "CANNOSCALE matches view",
+      "plot object lineweights ON",
+      "test VPLAYEROVERRIDESMODE"
+    ],
+    "viewportScopeOverrides": [
+      "VP Freeze",
+      "VP Color",
+      "VP Lineweight",
+      "VP Plot Style (STB-mode subject to AutoCAD verification)"
+    ],
+    "forbidPlotControl": "Do not use the viewport boundary's Plot=Off flag to suppress its viewport content; test actual CAD",
+    "viewportClipping": "viewport window or VPCLIP boundary separate from model bounds",
+    "label": "each viewport scale and title belongs in paper space; separate when multiple scales on a sheet",
+    "sourceOfTruth": "SheetUID + ViewportUID + source semantic region; do not use transient DWG Handle as global identity"
+  },
+  "diagnostics": [
+    "SLOT_COLLISION",
+    "FRAME_RESERVED_OVERLAP",
+    "TITLE_BLOCK_CROSSOVER",
+    "PLOTTER_UNCALIBRATED",
+    "VIEWPORT_UNLOCKED",
+    "BAD_ANNOTATIVE_SCALE",
+    "TEXT_OVERLAP",
+    "UNKNOWN_STB",
+    "UNFIT_CONTENT",
+    "MISSING_SOURCE_VIEW",
+    "MISSING_LAYOUT_PROFILE"
+  ],
+  "qualityGate": "CAD 2027 multi-layout PDF and physical A3/A2 print required"
+}

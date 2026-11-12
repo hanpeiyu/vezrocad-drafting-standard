@@ -1,0 +1,160 @@
+{
+  "schema": "vezrocad.lineweight-profiles.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "units": "mm on paper",
+  "modelUnits": "real world mm",
+  "layoutPlot": "paper space 1:1",
+  "rules": [
+    "Do not multiply lineweights with plot scale",
+    "Model ByLayer first, VP Lineweight per viewport",
+    "Hardcoded object lineweights do not automatically honor VP Layer overrides",
+    "For multiple scales use multiple layout viewports",
+    "No silent nearest-scale fallback; missing preset is a diagnostic"
+  ],
+  "baseRoleLineweightMm": {
+    "CUT_HEAVY": 0.5,
+    "OUTLINE_PRIMARY": 0.35,
+    "OUTLINE_SECONDARY": 0.25,
+    "DETAIL_THIN": 0.15,
+    "HIDDEN_DASHED": 0.15,
+    "CENTERLINE": 0.13,
+    "HATCH_PATTERN": 0.13,
+    "FILL_SURFACE": 0.13,
+    "WIPEOUT_MASK": null,
+    "DIMENSION": 0.15,
+    "ANNOTATION": 0.18,
+    "UNDERLAY_FAINT": 0.13,
+    "NONPLOT_GUIDE": null
+  },
+  "allowedWidthsMm": [
+    0.13,
+    0.15,
+    0.18,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.5,
+    0.53,
+    0.6,
+    0.7
+  ],
+  "presets": [
+    {
+      "id": "A3-1-100",
+      "paper": "A3",
+      "scaleDenominator": 100,
+      "label": "总览平面",
+      "overridesMm": {
+        "CUT_HEAVY": 0.35,
+        "OUTLINE_PRIMARY": 0.25,
+        "OUTLINE_SECONDARY": 0.18,
+        "DETAIL_THIN": 0.13,
+        "ANNOTATION": 0.15
+      }
+    },
+    {
+      "id": "A3-1-75",
+      "paper": "A3",
+      "scaleDenominator": 75,
+      "label": "大户型平面",
+      "overridesMm": {
+        "CUT_HEAVY": 0.4,
+        "OUTLINE_PRIMARY": 0.3,
+        "OUTLINE_SECONDARY": 0.2,
+        "DETAIL_THIN": 0.13
+      }
+    },
+    {
+      "id": "A3-1-50",
+      "paper": "A3",
+      "scaleDenominator": 50,
+      "label": "家装平面",
+      "overridesMm": {}
+    },
+    {
+      "id": "A3-1-25",
+      "paper": "A3",
+      "scaleDenominator": 25,
+      "label": "立面",
+      "overridesMm": {
+        "DETAIL_THIN": 0.18
+      }
+    },
+    {
+      "id": "A3-1-20",
+      "paper": "A3",
+      "scaleDenominator": 20,
+      "label": "柜体立面",
+      "overridesMm": {
+        "DETAIL_THIN": 0.18
+      }
+    },
+    {
+      "id": "A3-1-10",
+      "paper": "A3",
+      "scaleDenominator": 10,
+      "label": "节点",
+      "overridesMm": {
+        "CUT_HEAVY": 0.6,
+        "OUTLINE_PRIMARY": 0.4,
+        "OUTLINE_SECONDARY": 0.3,
+        "DETAIL_THIN": 0.18
+      }
+    },
+    {
+      "id": "A3-1-5",
+      "paper": "A3",
+      "scaleDenominator": 5,
+      "label": "细部",
+      "overridesMm": {
+        "CUT_HEAVY": 0.7,
+        "OUTLINE_PRIMARY": 0.5,
+        "OUTLINE_SECONDARY": 0.35,
+        "DETAIL_THIN": 0.2
+      }
+    },
+    {
+      "id": "A2-1-100",
+      "paper": "A2",
+      "scaleDenominator": 100,
+      "label": "A2 总览",
+      "overridesMm": {
+        "CUT_HEAVY": 0.35,
+        "OUTLINE_PRIMARY": 0.25,
+        "OUTLINE_SECONDARY": 0.18,
+        "DETAIL_THIN": 0.13
+      }
+    },
+    {
+      "id": "A2-1-50",
+      "paper": "A2",
+      "scaleDenominator": 50,
+      "label": "A2 平面",
+      "overridesMm": {}
+    },
+    {
+      "id": "A1-1-100",
+      "paper": "A1",
+      "scaleDenominator": 100,
+      "label": "A1 总览",
+      "overridesMm": {
+        "CUT_HEAVY": 0.35,
+        "OUTLINE_PRIMARY": 0.25,
+        "OUTLINE_SECONDARY": 0.18,
+        "DETAIL_THIN": 0.13
+      }
+    }
+  ],
+  "autoApplyStrategy": "profile -> role -> physical layer -> VP Lineweight override; dedicated layers where role separation is needed",
+  "validation": [
+    "PSTYLEMODE=0",
+    "VP overrides enabled",
+    "drawing uses ByLayer",
+    "STB object lineweight",
+    "A3/A2 PDF and physical print"
+  ],
+  "releaseGate": "Provisional widths; no CAD device validation"
+}
