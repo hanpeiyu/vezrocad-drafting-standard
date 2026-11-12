@@ -2,6 +2,7 @@
 
 > **定位：独立的规范仓库**，不是 VezroCAD 插件源代码。先讨论、校验、试打，再通过版本化的数据契约接入插件。 
 > **状态：提案 / 未经 AutoCAD 2027 实机打印验收**（2026-11-12）。
+> **正式仓库：** https://github.com/hanpeiyu/vezrocad-drafting-standard · `main` · 当前公开（Public）。
 
 这套规范服务于家装/室内设计：方案平面、拆改、地面铺装、顶棚、机电、定制柜、立面、节点、图纸套输出。核心是**业务对象 / 图形表达角色 / 实体图层 / 视图模板 / 打印样式**五层解耦。
 
@@ -26,7 +27,8 @@
 - [`docs/08-验收清单.md`](docs/08-验收清单.md)：CAD 2027 实机测试矩阵
 - [`docs/09-迭代路线与待决问题.md`](docs/09-迭代路线与待决问题.md)：先讨论再实施
 - [`docs/10-标准依据与边界.md`](docs/10-标准依据与边界.md)：国标/行业标准来源和非强制建议项
-- [`docs/11-GitHub初始化与协作.md`](docs/11-GitHub初始化与协作.md)：独立私有仓库建立与迭代流程
+- [`docs/11-GitHub初始化与协作.md`](docs/11-GitHub初始化与协作.md)：仓库现状、协作与迭代流程
+- [`docs/12-设计决策与验收门槛.md`](docs/12-设计决策与验收门槛.md)：后续讨论的决定项与验收门槛
 - [`docs/adr/0001-拆分图层与表达角色.md`](docs/adr/0001-拆分图层与表达角色.md)：首个架构决定记录
 - [`data/layers-v2.json`](data/layers-v2.json)：142 层提案目录，含默认表达角色、稳定键
 - [`data/representation-roles.json`](data/representation-roles.json)：13 个图形表达角色
@@ -50,6 +52,15 @@
 - 参考 GB/T 50001-2017 与 JGJ/T 244-2011，**本项目自定义值不代表标准原文的强制细则**。
 - 参考上传的统帅/类 DOP CTB 线宽层级，但**未解析原 DWT 完整图层表**，不声称一一复刻。
 - 不把原始商业模板 CTB、DWT 或客户图纸上传到仓库。见 [`docs/07-遗留模板迁移.md`](docs/07-遗留模板迁移.md)。
+
+## 当前迭代入口
+
+- [Issue #1：A3 STB 黑白/彩色实机验收](https://github.com/hanpeiyu/vezrocad-drafting-standard/issues/1)
+- [Issue #2：图块遮罩及绘制顺序](https://github.com/hanpeiyu/vezrocad-drafting-standard/issues/2)
+- [Issue #3：统帅 DWT 图层真实映射](https://github.com/hanpeiyu/vezrocad-drafting-standard/issues/3)
+- [Issues：提交新建议](https://github.com/hanpeiyu/vezrocad-drafting-standard/issues)
+
+仓库当前为公开状态；如涉及内部企业规范细则、未授权模板或客户图纸，先转为私有或避免上传。
 
 ## 变更协作
 

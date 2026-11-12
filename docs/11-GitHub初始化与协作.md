@@ -1,29 +1,38 @@
-# GitHub 仓库初始化与持续迭代
+# GitHub 仓库状态与持续迭代
 
-仓库推荐名称：`hanpeiyu/vezrocad-drafting-standard`，**Private（私有）**。本规范单独管理，不直接向现有 VezroCAD 源代码仓库写入。
+## 已完成
 
-## 创建仓库并推送
+- 正式仓库：<https://github.com/hanpeiyu/vezrocad-drafting-standard>
+- 默认分支：`main`
+- 当前可见性：**Public（公开）**。这只是当前事实，不表示已获授权公开第三方资料。
+- 当前标准：`v2.0.0` **Draft / 提案**；未通过 AutoCAD 2027 的 A3 黑白/彩色实机打印验收。
+- 与插件 `hanpeiyu/VezroCAD` 分离管理；此处不直接改生产插件代码。
 
-1. 打开 https://github.com/new ；Owner 为 `hanpeiyu`；Repository name 为 `vezrocad-drafting-standard`；Visibility 选 **Private**。
-2. 不勾选“Add a README file”“Add .gitignore”“Choose a license”，建立**空仓库**。
-3. 将本压缩包解压，打开 `vezrocad-drafting-standard` 文件夹；Git for Windows 已安装时，运行 `推送到GitHub.ps1`。如果 PowerShell 脚本执行受系统策略阻止，使用下面的手动命令。
+## 讨论与变更
+
+1. 设计问题优先创建 Issue，明确使用场景、可选方案、推荐方案、验收办法。
+2. 达成决策后增加 `docs/adr/NNNN-主题.md`，标明 Accepted / Superseded 等状态。
+3. 修改 `data/` 中图层、角色或视图配置时，必须同步说明兼容性和迁移方法。
+4. 使用 Pull Request 审核，CI 只证明数据结构与文件可解析，**不代表 CAD 实机可打印**。
+5. 只有通过 `docs/08-验收清单.md`、附 A3 样张和 CAD 版本，才能进入 Production-ready 状态。
+6. VezroCAD 插件侧只依赖经过明确版本固定的数据契约，严禁以图层中文名作智能对象唯一身份。
+
+## 遗留模板和公开仓库风险
+
+- 不将原统帅 DWT、CTB、DOP 商业模板、客户图纸、私有标注信息直接上传到 Public。
+- 用匿名脱敏的图层清单、样图和映射结果进行讨论。
+- 如未来需要公开第三方内部资料，先核对授权；无法确认时应转为 Private。
+- 即使后来将仓库改为私有，已公开过的内容也不应视为自动撤回。
+
+## 本地使用
+
+现有仓库已经完成初始化。**不要重新运行首次建仓脚本向非空 main 强推**；直接克隆：
 
 ```powershell
-git init -b main
-git add .
-git commit -m "docs: initial VezroCAD drafting standard v2 proposal"
-git remote add origin https://github.com/hanpeiyu/vezrocad-drafting-standard.git
-git push -u origin main
+git clone https://github.com/hanpeiyu/vezrocad-drafting-standard.git
+cd vezrocad-drafting-standard
+python scripts/validate.py
+python scripts/verify_binary_assets.py
 ```
 
-执行前请确认你已经登录 GitHub。**如远程非空、或 origin 已存在指向其他仓库，停止并检查，不要强制推送。**
-
-## 版本迭代
-
-- Issue：提出方案、记录打印故障、讨论新图层；不要直接改生产 DWT。
-- ADR：记录已确认决策及其代价，保留被否决的替代方案。
-- PR：提交 JSON/规范/样张改变，自动执行数据与二进制结构检查。
-- Release：只有在 AutoCAD 实机完成 A3 黑白/彩色及遮罩验收之后才能标记为“可生产使用”。
-- 与 `VezroCAD` 插件仓库的关系：通过固定版本的 JSON 契约消费，不直接复制修改历史项目图纸。
-
-本目录不包含原统帅 DWT/CTB 或客户项目图纸，避免无关商业数据进入远程仓库。
+检查打印资产时要在 AutoCAD 2027 中使用副本验证；暂不覆盖原生产 DWT 或默认打印文件。
