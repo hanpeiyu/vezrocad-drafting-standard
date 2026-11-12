@@ -58,9 +58,9 @@ pdb.executescript(project_sql)
 pdb.execute("INSERT INTO project_document(project_uid,standard_revision_id,standard_bundle_sha256) VALUES(?,?,?)",("demo","test","abc"))
 pdb.execute("INSERT INTO drawing_instance(project_uid,drawing_uid,drawing_type_id,drawing_title) VALUES(?,?,?,?)",("demo","drawing-a","INT-LAYOUT","家具图"))
 pdb.execute("INSERT INTO sheet_instance(project_uid,sheet_uid,layout_template_id,frame_template_id,sheet_title) VALUES(?,?,?,?,?)",("demo","sheet-a","A3-SINGLE","A3-L-VZ","A3家具图"))
-pdb.execute("INSERT INTO viewport_instance(project_uid,viewport_uid,sheet_uid,drawing_uid,layout_slot_id,source_view_id,scale_denominator) VALUES(?,?,?,?,?,?)",("demo","vp-a","sheet-a","drawing-a","PRIMARY","plan-furniture",75))
+pdb.execute("INSERT INTO viewport_instance(project_uid,viewport_uid,sheet_uid,drawing_uid,layout_slot_id,source_view_id,scale_denominator) VALUES(?,?,?,?,?,?,?)",("demo","vp-a","sheet-a","drawing-a","PRIMARY","plan-furniture",75))
 try:
-    pdb.execute("INSERT INTO viewport_instance(project_uid,viewport_uid,sheet_uid,drawing_uid,layout_slot_id,source_view_id,scale_denominator) VALUES(?,?,?,?,?,?)",("demo","vp-b","nonexistent","drawing-a","PRIMARY","plan-furniture",75))
+    pdb.execute("INSERT INTO viewport_instance(project_uid,viewport_uid,sheet_uid,drawing_uid,layout_slot_id,source_view_id,scale_denominator) VALUES(?,?,?,?,?,?,?)",("demo","vp-b","nonexistent","drawing-a","PRIMARY","plan-furniture",75))
     raise AssertionError("project viewport FK not enforced")
 except sqlite3.IntegrityError:pass
 pdb.close()
