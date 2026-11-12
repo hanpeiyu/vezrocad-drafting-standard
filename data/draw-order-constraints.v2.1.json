@@ -1,0 +1,157 @@
+{
+  "schema": "vezrocad.draw-order.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "proposal",
+  "scope": "same rendered viewport; partial order of entities, NOT total order of 142 layers",
+  "implementation": "CAD DRAW-ORDER in each relevant block and model context; layer names/order cannot enforce stacking",
+  "legacyRolePriority": "v2 numeric priority is a hint only; this graph takes precedence after adoption",
+  "globalEdges": [
+    {
+      "below": "UNDERLAY_FAINT",
+      "above": "FILL_SURFACE",
+      "reason": "底图在分析底色下"
+    },
+    {
+      "below": "UNDERLAY_FAINT",
+      "above": "HATCH_PATTERN",
+      "reason": "底图在铺贴线下"
+    },
+    {
+      "below": "FILL_SURFACE",
+      "above": "HATCH_PATTERN",
+      "reason": "纹理在材料底色上"
+    },
+    {
+      "below": "HATCH_PATTERN",
+      "above": "WIPEOUT_MASK",
+      "reason": "对象遮罩遮挡铺贴纹理，且只限有效足迹"
+    },
+    {
+      "below": "WIPEOUT_MASK",
+      "above": "OUTLINE_PRIMARY",
+      "reason": "主轮廓高于遮罩"
+    },
+    {
+      "below": "WIPEOUT_MASK",
+      "above": "OUTLINE_SECONDARY",
+      "reason": "分界线高于遮罩"
+    },
+    {
+      "below": "WIPEOUT_MASK",
+      "above": "CUT_HEAVY",
+      "reason": "结构剖切轮廓不能被家具等遮罩擦掉"
+    },
+    {
+      "below": "WIPEOUT_MASK",
+      "above": "DETAIL_THIN",
+      "reason": "柜门、五金等可见细节高于遮罩"
+    },
+    {
+      "below": "HATCH_PATTERN",
+      "above": "DETAIL_THIN",
+      "reason": "细节线高于背景纹理"
+    },
+    {
+      "below": "OUTLINE_PRIMARY",
+      "above": "DIMENSION",
+      "reason": "尺寸优先"
+    },
+    {
+      "below": "OUTLINE_SECONDARY",
+      "above": "DIMENSION",
+      "reason": "尺寸优先"
+    },
+    {
+      "below": "CUT_HEAVY",
+      "above": "ANNOTATION",
+      "reason": "说明索引优先，仍需避让线条"
+    },
+    {
+      "below": "DETAIL_THIN",
+      "above": "ANNOTATION",
+      "reason": "说明索引优先"
+    }
+  ],
+  "viewEdges": {
+    "plan-furniture": [
+      {
+        "below": "FILL_SURFACE",
+        "above": "WIPEOUT_MASK",
+        "reason": "地面色块在家具遮罩下"
+      }
+    ],
+    "plan-floor": [
+      {
+        "below": "HATCH_PATTERN",
+        "above": "OUTLINE_PRIMARY",
+        "reason": "铺贴线不能遮蔽墙体外轮廓"
+      }
+    ],
+    "plan-ceiling": [
+      {
+        "below": "FILL_SURFACE",
+        "above": "WIPEOUT_MASK",
+        "reason": "灯具遮罩位于顶面填色上"
+      }
+    ],
+    "plan-electrical": [
+      {
+        "below": "UNDERLAY_FAINT",
+        "above": "OUTLINE_PRIMARY",
+        "reason": "机电点位比背景醒目"
+      }
+    ],
+    "elevation": [
+      {
+        "below": "FILL_SURFACE",
+        "above": "OUTLINE_SECONDARY",
+        "reason": "立面材料填色低于柜门细分界"
+      }
+    ],
+    "detail": [
+      {
+        "below": "HATCH_PATTERN",
+        "above": "CUT_HEAVY",
+        "reason": "节点剖切主线高于纹理"
+      }
+    ]
+  },
+  "objectScopedGuards": [
+    {
+      "id": "mask-below-own-lines",
+      "level": "error",
+      "description": "同一构件遮罩必须位于本构件轮廓、五金及文字之下"
+    },
+    {
+      "id": "protect-host-structure",
+      "level": "error",
+      "description": "遮罩不能吞掉墙体结构边界；应裁剪足迹/正确的块内外实体顺序，不能靠单一全局排序"
+    },
+    {
+      "id": "draworder-not-layerorder",
+      "level": "error",
+      "description": "AutoCAD 图层管理器的图层排序不等于实体 DRAWORDER，嵌套块和Xref需额外测试"
+    },
+    {
+      "id": "nonplot-excluded",
+      "level": "warning",
+      "description": "NONPLOT_GUIDE 是非打印角色，不参与实际打印叠放"
+    }
+  ],
+  "knownRoles": [
+    "CUT_HEAVY",
+    "OUTLINE_PRIMARY",
+    "OUTLINE_SECONDARY",
+    "DETAIL_THIN",
+    "HIDDEN_DASHED",
+    "CENTERLINE",
+    "HATCH_PATTERN",
+    "FILL_SURFACE",
+    "WIPEOUT_MASK",
+    "DIMENSION",
+    "ANNOTATION",
+    "UNDERLAY_FAINT",
+    "NONPLOT_GUIDE"
+  ],
+  "releaseGate": "AutoCAD 2027 block/dynamic block/xref PDF test required"
+}
