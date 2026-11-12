@@ -1,0 +1,28 @@
+{
+  "family": "cabinet.wardrobe",
+  "blockType": "multiRole",
+  "anchor": "insertionPoint",
+  "representation": [
+    {
+      "role": "WIPEOUT_MASK",
+      "layer": "定制-柜体-遮罩",
+      "order": 10
+    },
+    {
+      "role": "HATCH_PATTERN",
+      "layer": "定制-柜体-填充",
+      "order": 20
+    },
+    {
+      "role": "OUTLINE_PRIMARY",
+      "layer": "定制-衣柜-柜体",
+      "order": 30
+    },
+    {
+      "role": "DETAIL_THIN",
+      "layer": "定制-柜门-细节",
+      "order": 40
+    }
+  ],
+  "notes": "Draw order local to block; mask covers external geometry but not own outlines; always test inside nested blocks"
+}

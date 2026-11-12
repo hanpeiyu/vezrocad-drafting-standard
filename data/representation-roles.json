@@ -1,0 +1,136 @@
+{
+  "schema": "vezrocad.roles.v2",
+  "version": "2.0.0",
+  "roles": [
+    {
+      "id": "CUT_HEAVY",
+      "name": "剖切粗线",
+      "defaultLineweightMm": 0.5,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-MAIN",
+      "drawOrderPriority": 65,
+      "usage": "被剖切墙体、结构体；0.53 可按构件状态覆盖",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "OUTLINE_PRIMARY",
+      "name": "主轮廓",
+      "defaultLineweightMm": 0.35,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-MAIN",
+      "drawOrderPriority": 60,
+      "usage": "图块、柜体、门窗主要外框",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "OUTLINE_SECONDARY",
+      "name": "次轮廓",
+      "defaultLineweightMm": 0.25,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-MAIN",
+      "drawOrderPriority": 55,
+      "usage": "次级边缘、内部结构",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "DETAIL_THIN",
+      "name": "细节线",
+      "defaultLineweightMm": 0.15,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-SOFT",
+      "drawOrderPriority": 52,
+      "usage": "柜门分缝、五金、门扇开启弧等",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "HIDDEN_DASHED",
+      "name": "隐蔽/投影虚线",
+      "defaultLineweightMm": 0.15,
+      "defaultLinetype": "DASHED",
+      "defaultPlotStyle": "VZ-SOFT",
+      "drawOrderPriority": 45,
+      "usage": "视图中被遮挡的构件、上部投影",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "CENTERLINE",
+      "name": "中心/定位线",
+      "defaultLineweightMm": 0.13,
+      "defaultLinetype": "CENTER",
+      "defaultPlotStyle": "VZ-FAINT",
+      "drawOrderPriority": 42,
+      "usage": "绘图中心线；最终出图是否显示按视图决定",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "HATCH_PATTERN",
+      "name": "材料图案填充",
+      "defaultLineweightMm": 0.13,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-FILL",
+      "drawOrderPriority": 35,
+      "usage": "剖面材料图案、铺贴纹理，不作为遮挡",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "FILL_SURFACE",
+      "name": "分析色块",
+      "defaultLineweightMm": 0.13,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-FILL",
+      "drawOrderPriority": 20,
+      "usage": "分析填色、材质填色，控制密度和打印效果",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "WIPEOUT_MASK",
+      "name": "遮罩背景",
+      "defaultLineweightMm": 0.13,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-MASK",
+      "drawOrderPriority": 25,
+      "usage": "仅 WIPEOUT / 合格遮挡对象：遮罩高于底图，低于本构件线条",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "DIMENSION",
+      "name": "尺寸线",
+      "defaultLineweightMm": 0.15,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-MAIN",
+      "drawOrderPriority": 75,
+      "usage": "尺寸界线、尺寸线、标高等",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "ANNOTATION",
+      "name": "标注与索引",
+      "defaultLineweightMm": 0.18,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-MAIN",
+      "drawOrderPriority": 80,
+      "usage": "引出、索引和正文",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "UNDERLAY_FAINT",
+      "name": "浅参照",
+      "defaultLineweightMm": 0.13,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-FAINT",
+      "drawOrderPriority": 10,
+      "usage": "需打印的底图或旧有参考，不等于不打印",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    },
+    {
+      "id": "NONPLOT_GUIDE",
+      "name": "非打印辅助",
+      "defaultLineweightMm": 0.13,
+      "defaultLinetype": "CONTINUOUS",
+      "defaultPlotStyle": "VZ-FAINT",
+      "drawOrderPriority": 5,
+      "usage": "定位、图框视口边界，Plot=Off",
+      "layerPolicy": "ByLayer preferred; ByBlock for simple single-role block; overrides must be auditable"
+    }
+  ]
+}

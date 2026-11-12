@@ -1,0 +1,169 @@
+{
+  "schema": "vezrocad.views.v2",
+  "views": {
+    "plan-existing": {
+      "title": "原始结构",
+      "showProfession": [
+        "建筑",
+        "标注",
+        "图纸"
+      ],
+      "focusRoles": [
+        "CUT_HEAVY",
+        "OUTLINE_PRIMARY",
+        "DIMENSION"
+      ],
+      "faintProfession": [
+        "家具",
+        "定制"
+      ],
+      "notes": "不显示方案柜体、电气等"
+    },
+    "plan-demolition": {
+      "title": "拆除与新建",
+      "showProfession": [
+        "建筑",
+        "拆改",
+        "标注",
+        "图纸"
+      ],
+      "focusLayerStates": [
+        "拆除",
+        "新建"
+      ],
+      "faintLayerStates": [
+        "现状"
+      ],
+      "notes": "拆改前后状态不可仅靠红/黄颜色识别，须同时用线型/图例"
+    },
+    "plan-furniture": {
+      "title": "平面布置",
+      "showProfession": [
+        "建筑",
+        "定制",
+        "家具",
+        "给排",
+        "标注",
+        "图纸"
+      ],
+      "focusRoles": [
+        "OUTLINE_PRIMARY",
+        "OUTLINE_SECONDARY",
+        "DIMENSION"
+      ],
+      "faintProfession": [
+        "给排"
+      ],
+      "notes": "门开启方向、柜体遮罩保留"
+    },
+    "plan-floor": {
+      "title": "地面铺装",
+      "showProfession": [
+        "建筑",
+        "装饰",
+        "标注",
+        "图纸"
+      ],
+      "focusLayerFragments": [
+        "地面",
+        "铺贴",
+        "分格"
+      ],
+      "notes": "控制铺贴纹理密度，隐藏非相关构造"
+    },
+    "plan-ceiling": {
+      "title": "吊顶与灯位",
+      "showProfession": [
+        "建筑",
+        "装饰",
+        "电气",
+        "暖通",
+        "标注",
+        "图纸"
+      ],
+      "focusLayerFragments": [
+        "天花",
+        "灯具"
+      ],
+      "notes": "灯具遮罩不得盖掉其自身外轮廓"
+    },
+    "plan-electrical": {
+      "title": "强弱电",
+      "showProfession": [
+        "建筑",
+        "电气",
+        "定制",
+        "家具",
+        "标注",
+        "图纸"
+      ],
+      "faintProfession": [
+        "建筑",
+        "定制",
+        "家具"
+      ],
+      "focusProfession": [
+        "电气"
+      ],
+      "notes": "点位符号优先于家具投影，禁止复制墙线制造灰底"
+    },
+    "plan-plumbing": {
+      "title": "给排水",
+      "showProfession": [
+        "建筑",
+        "给排",
+        "家具",
+        "标注",
+        "图纸"
+      ],
+      "faintProfession": [
+        "建筑",
+        "家具"
+      ],
+      "focusProfession": [
+        "给排"
+      ],
+      "notes": "冷热水、排水使用文字/线型冗余表达"
+    },
+    "elevation": {
+      "title": "立面",
+      "showProfession": [
+        "建筑",
+        "装饰",
+        "定制",
+        "家具",
+        "给排",
+        "标注",
+        "图纸"
+      ],
+      "focusRoles": [
+        "OUTLINE_PRIMARY",
+        "OUTLINE_SECONDARY",
+        "DETAIL_THIN",
+        "HATCH_PATTERN",
+        "DIMENSION"
+      ],
+      "notes": "生成时按可见/剖切/隐蔽角色输出"
+    },
+    "detail": {
+      "title": "剖面节点",
+      "showProfession": [
+        "建筑",
+        "装饰",
+        "定制",
+        "电气",
+        "给排",
+        "暖通",
+        "标注",
+        "图纸"
+      ],
+      "focusRoles": [
+        "CUT_HEAVY",
+        "OUTLINE_PRIMARY",
+        "HATCH_PATTERN",
+        "DIMENSION"
+      ],
+      "notes": "1:5~1:20 尺度校验"
+    }
+  }
+}

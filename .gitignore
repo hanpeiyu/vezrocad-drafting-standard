@@ -1,0 +1,11 @@
+# Never commit client's DWG files or proprietary legacy CAD standards
+source-private/
+client-drawings/
+*.dwg
+*.dwt
+*.bak
+*.sv$
+*.ac$
+__pycache__/
+.DS_Store
+Thumbs.db

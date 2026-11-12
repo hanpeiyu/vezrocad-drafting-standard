@@ -1,0 +1,22 @@
+{
+  "family": "sanitary.toilet",
+  "blockType": "multiRole",
+  "representation": [
+    {
+      "role": "WIPEOUT_MASK",
+      "layer": "给排-洁具-遮罩",
+      "order": 10
+    },
+    {
+      "role": "OUTLINE_PRIMARY",
+      "layer": "给排-洁具-轮廓",
+      "order": 20
+    },
+    {
+      "role": "DETAIL_THIN",
+      "layer": "通用-图块-细线",
+      "order": 30
+    }
+  ],
+  "notes": "Make sure mask is below fixture outlines, above tile grid and background"
+}

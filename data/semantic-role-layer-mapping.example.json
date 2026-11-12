@@ -1,0 +1,60 @@
+{
+  "schema": "vezrocad.semantic-mapping.example.v2",
+  "note": "Example, not a complete mapping",
+  "mappings": [
+    {
+      "semanticId": "wall.existing",
+      "representationRole": "CUT_HEAVY",
+      "view": "plan-existing",
+      "layer": "建筑-墙体-轮廓-现状"
+    },
+    {
+      "semanticId": "wall.new",
+      "representationRole": "CUT_HEAVY",
+      "view": "plan-furniture",
+      "layer": "建筑-墙体-轮廓-新建"
+    },
+    {
+      "semanticId": "door.swing",
+      "representationRole": "OUTLINE_PRIMARY",
+      "view": "plan-furniture",
+      "layer": "建筑-门体-轮廓-新建"
+    },
+    {
+      "semanticId": "door.swing",
+      "representationRole": "DETAIL_THIN",
+      "view": "plan-furniture",
+      "layer": "建筑-门体-开启"
+    },
+    {
+      "semanticId": "door.swing",
+      "representationRole": "WIPEOUT_MASK",
+      "view": "plan-furniture",
+      "layer": "建筑-门体-遮罩"
+    },
+    {
+      "semanticId": "cabinet.wardrobe",
+      "representationRole": "DETAIL_THIN",
+      "view": "plan-furniture",
+      "layer": "定制-柜门-细节"
+    },
+    {
+      "semanticId": "cabinet.wardrobe",
+      "representationRole": "WIPEOUT_MASK",
+      "view": "plan-furniture",
+      "layer": "定制-柜体-遮罩"
+    },
+    {
+      "semanticId": "sanitary.toilet",
+      "representationRole": "WIPEOUT_MASK",
+      "view": "plan-furniture",
+      "layer": "给排-洁具-遮罩"
+    },
+    {
+      "semanticId": "lighting.fixture",
+      "representationRole": "WIPEOUT_MASK",
+      "view": "plan-ceiling",
+      "layer": "电气-灯具-遮罩"
+    }
+  ]
+}
