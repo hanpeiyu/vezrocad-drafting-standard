@@ -111,7 +111,8 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
                 raise ValueError(f"duplicate sheet instance identity in project: {t['id']} {target}")
             seen_uids.add(drawing_uid)
             emitted.append({
-                "drawingUid":drawing_uid,\n                "sheetUid":None, # assigned only after physical page/layout placement; NOT the drawing identity
+                "drawingUid":drawing_uid,
+                "sheetUid":None, # assigned only after physical page/layout placement; NOT the drawing identity
                 "sheetInstanceId":f"S-{len(emitted)+1:03d}", # legacy preview display ordinal; NOT permanent identity
                 "displaySheetNo":None, # assigned only by actual sheetset ordering / numbering rules
 
