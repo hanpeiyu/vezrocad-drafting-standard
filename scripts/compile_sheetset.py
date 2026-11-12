@@ -17,7 +17,7 @@ _DRAWING_UID_NAMESPACE = uuid.UUID("67fa66d5-0adb-44f3-8b1d-9d88a7135b41")
 def stable_drawing_uid(project_uid, sheet_type_id, target_ref):
     """Stable logical DRAWING instance UID, not a physical paper sheet UID."""
     identity=json.dumps([str(project_uid),str(sheet_type_id),target_ref],sort_keys=True,ensure_ascii=False,separators=(",",":"))
-    return str(uuid.uuid5(_SHEET_UID_NAMESPACE, identity))
+    return str(uuid.uuid5(_DRAWING_UID_NAMESPACE, identity))
 
 def compile_project(project, tax=None, packages=None, profile=None, colors=None):
     tax=tax or read("data/sheet-taxonomy.v2.1.json")
