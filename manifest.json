@@ -4,7 +4,7 @@
   "visibilityRecommendation": "private",
   "version": "2.0.0",
   "repoCreatedOnGitHub": true,
-  "filesCount": 34,
+  "filesCount": 43,
   "layerCount": 142,
   "representationRoleCount": 13,
   "viewPresetCount": 9,
@@ -13,5 +13,10 @@
   "remoteRenamePending": false,
   "visibilityActual": "public",
   "status": "draft",
-  "printValidation": "pending-AutoCAD-2027"
+  "printValidation": "pending-AutoCAD-2027",
+  "proposalVersion": "2.1.0",
+  "proposalStatus": "review-only",
+  "proposalFeatureBranch": "proposal/v2.1-presentation-engine",
+  "productionReady": false,
+  "experimentalStbV21Generated": false
 }

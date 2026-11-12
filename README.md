@@ -53,6 +53,16 @@
 - 参考上传的统帅/类 DOP CTB 线宽层级，但**未解析原 DWT 完整图层表**，不声称一一复刻。
 - 不把原始商业模板 CTB、DWT 或客户图纸上传到仓库。见 [`docs/07-遗留模板迁移.md`](docs/07-遗留模板迁移.md)。
 
+## V2.1 专业图纸表达引擎（提案分支，尚未合并）
+
+V2.1 新增 **绘制顺序DAG、纸张/比例线宽预设、LOD简化、四种彩色/黑白输出目标、插件适配契约**。V2.0 的142层及两套旧STB保持原样；新的 V2.1 STB 只存在配置目标文件名，尚未生成、不得直接用于出图。
+
+- [绘制顺序规则](docs/13-绘制顺序约束.md) / [数据](data/draw-order-constraints.v2.1.json)
+- [线宽和细节简化](docs/14-纸张比例线宽与细节可见性.md) / [配置](data/lineweight-profiles.v2.1.json)
+- [屏幕与打印颜色解耦](docs/15-彩色黑白输出体系.md) / [色彩模式](data/print-color-profiles.v2.1.json)
+- [与VezroCAD插件的集成契约](docs/16-图纸表达引擎集成契约.md)
+- 运行检查：python scripts/validate_presentation.py （结构检查，不代表AutoCAD实机通过）
+
 ## 当前迭代入口
 
 - [Issue #1：A3 STB 黑白/彩色实机验收](https://github.com/hanpeiyu/vezrocad-drafting-standard/issues/1)

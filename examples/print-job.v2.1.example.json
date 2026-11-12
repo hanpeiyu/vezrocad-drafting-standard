@@ -1,0 +1,26 @@
+{
+  "schema": "vezrocad.print-job.example.v2.1",
+  "proposalOnly": true,
+  "paper": "A3",
+  "layout": "A3-家装施工图",
+  "viewports": [
+    {
+      "id": "VP-PLAN",
+      "viewId": "plan-furniture",
+      "scaleDenominator": 50,
+      "lineweightPreset": "A3-1-50"
+    },
+    {
+      "id": "VP-DETAIL",
+      "viewId": "detail",
+      "scaleDenominator": 10,
+      "lineweightPreset": "A3-1-10"
+    }
+  ],
+  "printOutput": {
+    "mode": "COLOR",
+    "styleTableTarget": "VZ-COLOR-v2.1.stb",
+    "ready": false
+  },
+  "dryRun": true
+}
