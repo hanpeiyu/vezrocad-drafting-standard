@@ -4,7 +4,7 @@
   "visibilityRecommendation": "private",
   "version": "2.0.0",
   "repoCreatedOnGitHub": true,
-  "filesCount": 43,
+  "filesCount": 45,
   "layerCount": 142,
   "representationRoleCount": 13,
   "viewPresetCount": 9,
@@ -18,5 +18,6 @@
   "proposalStatus": "review-only",
   "proposalFeatureBranch": "proposal/v2.1-presentation-engine",
   "productionReady": false,
-  "experimentalStbV21Generated": false
+  "experimentalStbV21Generated": false,
+  "proposalFileCount": 45
 }
