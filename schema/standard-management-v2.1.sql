@@ -195,3 +195,330 @@ CREATE INDEX IF NOT EXISTS idx_constraint_view ON draw_order_constraint(revision
 -- The UI must prohibit mutation of a published revision; edit by cloning to DRAFT.
 -- The actual release is a Git-reviewed, immutable, versioned JSON bundle with digest.
 -- This schema intentionally contains no customer addresses, geometry, or client drawings.
+
+-- V2.1 proposal extension: frame/layout/viewport templates are STANDARD data.
+CREATE TABLE IF NOT EXISTS frame_template (
+  revision_id TEXT NOT NULL,
+  frame_id TEXT NOT NULL,
+  paper_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  bounds_json TEXT NOT NULL,
+  title_block_ref TEXT NOT NULL,
+  calibration_required INTEGER NOT NULL DEFAULT 1 CHECK(calibration_required=1),
+  PRIMARY KEY(revision_id, frame_id),
+  FOREIGN KEY(revision_id) REFERENCES standard_revision(revision_id)
+);
+CREATE TABLE IF NOT EXISTS sheet_layout_template (
+  revision_id TEXT NOT NULL,
+  layout_id TEXT NOT NULL,
+  frame_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  PRIMARY KEY(revision_id,layout_id),
+  FOREIGN KEY(revision_id,frame_id) REFERENCES frame_template(revision_id,frame_id)
+);
+CREATE TABLE IF NOT EXISTS layout_slot (
+  revision_id TEXT NOT NULL,
+  layout_id TEXT NOT NULL,
+  slot_id TEXT NOT NULL,
+  view_role TEXT NOT NULL,
+  x_mm REAL NOT NULL,
+  y_mm REAL NOT NULL,
+  width_mm REAL NOT NULL CHECK(width_mm>0),
+  height_mm REAL NOT NULL CHECK(height_mm>0),
+  title_band_mm REAL NOT NULL DEFAULT 9 CHECK(title_band_mm>=0),
+  clip_margin_mm REAL NOT NULL DEFAULT 2 CHECK(clip_margin_mm>=0),
+  PRIMARY KEY(revision_id,layout_id,slot_id),
+  FOREIGN KEY(revision_id,layout_id) REFERENCES sheet_layout_template(revision_id,layout_id),
+  CHECK(width_mm > 2*clip_margin_mm AND height_mm > title_band_mm+2*clip_margin_mm)
+);
+CREATE TABLE IF NOT EXISTS viewport_template (
+  revision_id TEXT NOT NULL,
+  viewport_kind_id TEXT NOT NULL,
+  view_id TEXT NOT NULL,
+  display_name TEXT NOT NULL,
+  rules_json TEXT NOT NULL DEFAULT '{}',
+  PRIMARY KEY(revision_id,viewport_kind_id,view_id),
+  FOREIGN KEY(revision_id,view_id) REFERENCES view_preset(revision_id,view_id)
+);
+CREATE TABLE IF NOT EXISTS sheet_layout_binding (
+  revision_id TEXT NOT NULL,
+  sheet_type_id TEXT NOT NULL,
+  layout_id TEXT NOT NULL,
+  priority INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY(revision_id,sheet_type_id,layout_id),
+  FOREIGN KEY(revision_id,sheet_type_id) REFERENCES sheet_type(revision_id,sheet_type_id),
+  FOREIGN KEY(revision_id,layout_id) REFERENCES sheet_layout_template(revision_id,layout_id)
+);
+CREATE INDEX IF NOT EXISTS idx_sheet_layout_binding ON sheet_layout_binding(revision_id,sheet_type_id,priority);
+
+CREATE TRIGGER IF NOT EXISTS guard_profession_insert_published
+BEFORE INSERT ON profession
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_profession_update_published
+BEFORE UPDATE ON profession
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_profession_delete_published
+BEFORE DELETE ON profession
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_view_preset_insert_published
+BEFORE INSERT ON view_preset
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_view_preset_update_published
+BEFORE UPDATE ON view_preset
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_view_preset_delete_published
+BEFORE DELETE ON view_preset
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_semantic_tag_insert_published
+BEFORE INSERT ON semantic_tag
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_semantic_tag_update_published
+BEFORE UPDATE ON semantic_tag
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_semantic_tag_delete_published
+BEFORE DELETE ON semantic_tag
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_representation_role_insert_published
+BEFORE INSERT ON representation_role
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_representation_role_update_published
+BEFORE UPDATE ON representation_role
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_representation_role_delete_published
+BEFORE DELETE ON representation_role
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_type_insert_published
+BEFORE INSERT ON sheet_type
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_type_update_published
+BEFORE UPDATE ON sheet_type
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_type_delete_published
+BEFORE DELETE ON sheet_type
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_expression_insert_published
+BEFORE INSERT ON sheet_expression
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_expression_update_published
+BEFORE UPDATE ON sheet_expression
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_expression_delete_published
+BEFORE DELETE ON sheet_expression
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_layer_rule_insert_published
+BEFORE INSERT ON layer_rule
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_layer_rule_update_published
+BEFORE UPDATE ON layer_rule
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_layer_rule_delete_published
+BEFORE DELETE ON layer_rule
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_role_layer_binding_insert_published
+BEFORE INSERT ON role_layer_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_role_layer_binding_update_published
+BEFORE UPDATE ON role_layer_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_role_layer_binding_delete_published
+BEFORE DELETE ON role_layer_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_paper_template_insert_published
+BEFORE INSERT ON paper_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_paper_template_update_published
+BEFORE UPDATE ON paper_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_paper_template_delete_published
+BEFORE DELETE ON paper_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_scale_policy_insert_published
+BEFORE INSERT ON scale_policy
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_scale_policy_update_published
+BEFORE UPDATE ON scale_policy
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_scale_policy_delete_published
+BEFORE DELETE ON scale_policy
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_scale_binding_insert_published
+BEFORE INSERT ON sheet_scale_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_scale_binding_update_published
+BEFORE UPDATE ON sheet_scale_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_scale_binding_delete_published
+BEFORE DELETE ON sheet_scale_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_lineweight_profile_insert_published
+BEFORE INSERT ON lineweight_profile
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_lineweight_profile_update_published
+BEFORE UPDATE ON lineweight_profile
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_lineweight_profile_delete_published
+BEFORE DELETE ON lineweight_profile
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_lineweight_by_role_insert_published
+BEFORE INSERT ON lineweight_by_role
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_lineweight_by_role_update_published
+BEFORE UPDATE ON lineweight_by_role
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_lineweight_by_role_delete_published
+BEFORE DELETE ON lineweight_by_role
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_print_mode_insert_published
+BEFORE INSERT ON print_mode
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_print_mode_update_published
+BEFORE UPDATE ON print_mode
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_print_mode_delete_published
+BEFORE DELETE ON print_mode
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_plot_style_insert_published
+BEFORE INSERT ON plot_style
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_plot_style_update_published
+BEFORE UPDATE ON plot_style
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_plot_style_delete_published
+BEFORE DELETE ON plot_style
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_plot_style_color_insert_published
+BEFORE INSERT ON plot_style_color
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_plot_style_color_update_published
+BEFORE UPDATE ON plot_style_color
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_plot_style_color_delete_published
+BEFORE DELETE ON plot_style_color
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_draw_order_constraint_insert_published
+BEFORE INSERT ON draw_order_constraint
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_draw_order_constraint_update_published
+BEFORE UPDATE ON draw_order_constraint
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_draw_order_constraint_delete_published
+BEFORE DELETE ON draw_order_constraint
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_frame_template_insert_published
+BEFORE INSERT ON frame_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_frame_template_update_published
+BEFORE UPDATE ON frame_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_frame_template_delete_published
+BEFORE DELETE ON frame_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_layout_template_insert_published
+BEFORE INSERT ON sheet_layout_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_layout_template_update_published
+BEFORE UPDATE ON sheet_layout_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_layout_template_delete_published
+BEFORE DELETE ON sheet_layout_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_layout_slot_insert_published
+BEFORE INSERT ON layout_slot
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_layout_slot_update_published
+BEFORE UPDATE ON layout_slot
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_layout_slot_delete_published
+BEFORE DELETE ON layout_slot
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_viewport_template_insert_published
+BEFORE INSERT ON viewport_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_viewport_template_update_published
+BEFORE UPDATE ON viewport_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_viewport_template_delete_published
+BEFORE DELETE ON viewport_template
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_layout_binding_insert_published
+BEFORE INSERT ON sheet_layout_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_layout_binding_update_published
+BEFORE UPDATE ON sheet_layout_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = NEW.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_sheet_layout_binding_delete_published
+BEFORE DELETE ON sheet_layout_binding
+WHEN (SELECT status FROM standard_revision WHERE revision_id = OLD.revision_id) = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision is immutable'); END;
+
+CREATE TRIGGER IF NOT EXISTS guard_standard_revision_update
+BEFORE UPDATE ON standard_revision WHEN OLD.status = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision metadata is immutable'); END;
+CREATE TRIGGER IF NOT EXISTS guard_standard_revision_delete
+BEFORE DELETE ON standard_revision WHEN OLD.status = 'PUBLISHED'
+BEGIN SELECT RAISE(ABORT, 'Published standard revision cannot be deleted'); END;
