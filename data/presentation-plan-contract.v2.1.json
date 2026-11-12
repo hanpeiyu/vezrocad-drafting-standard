@@ -1,0 +1,93 @@
+{
+  "schema": "vezrocad.presentation-plan.v2.1",
+  "version": "2.1.0-proposal",
+  "status": "interface-only-not-executable",
+  "input": {
+    "required": [
+      "standardRevisionId",
+      "standardBundleDigest",
+      "projectUid",
+      "drawingInstances",
+      "targetSheetPage",
+      "outputMode",
+      "dryRun"
+    ],
+    "optional": [
+      "cadCapabilities",
+      "realContentBounds",
+      "userLockedScales",
+      "plotDeviceCalibration",
+      "explicitOverrides"
+    ]
+  },
+  "resolved": {
+    "physicalPage": [
+      "sheetUid",
+      "frameTemplateId",
+      "sheetLayoutTemplateId",
+      "plotProfile",
+      "titleBlockFields",
+      "revisionLabel",
+      "displaySheetNo"
+    ],
+    "viewports": [
+      "viewportUid",
+      "drawingUid",
+      "slotId",
+      "viewId",
+      "scaleDenominator",
+      "lineweightProfileId",
+      "modelClip",
+      "viewportFreezeOverrides",
+      "viewportPlotStyleOverrides",
+      "annotationScale",
+      "displayLocked"
+    ],
+    "objects": [
+      "objectUid",
+      "representationRole",
+      "targetLayerRuleId",
+      "visible",
+      "effectiveLineweightMm",
+      "plotStyleName",
+      "drawOrderConstraints",
+      "maskOwnerUid"
+    ],
+    "crossDrawing": [
+      "referenceUid",
+      "sourceDrawingUid",
+      "targetDrawingUid",
+      "impactPolicy"
+    ]
+  },
+  "diagnosticLevels": [
+    "ERROR",
+    "BLOCKED",
+    "REVIEW",
+    "WARNING",
+    "INFO"
+  ],
+  "ruleTraceFields": [
+    "ruleId",
+    "sourceFile",
+    "standardRevisionId",
+    "resolutionReason",
+    "overriddenByUser"
+  ],
+  "previewAndApply": {
+    "dryRunDefault": true,
+    "applyReadyRequires": [
+      "verified_standard_snapshot",
+      "verified_plot_styles",
+      "CAD_transaction_available",
+      "all_blocking_diagnostics_resolved",
+      "user_approval"
+    ],
+    "noModelGeometryMutation": true,
+    "rollbackOnFailure": true,
+    "neverAutoApproveElectricalDesign": true
+  },
+  "identityContractRef": "data/drawing-sheet-identity.v2.1.json",
+  "printingStatus": "V2.1 STB binaries not created or verified",
+  "provider": "proposed independent Presentation Resolver; neither WebView2 nor CAD adapter may redefine rules locally"
+}
