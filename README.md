@@ -55,7 +55,7 @@
 
 ## V2.1 专业图纸表达引擎（提案分支，尚未合并）
 
-V2.1 新增 **绘制顺序DAG、纸张/比例线宽预设、LOD简化、四种彩色/黑白输出目标、插件适配契约，以及37种家装图纸类型与图纸套编排提案**。V2.0 的142层及两套旧STB保持原样；新的 V2.1 STB 只存在配置目标文件名，尚未生成、不得直接用于出图。
+V2.1 新增 **绘制顺序DAG、纸张/比例线宽预设、按真实图形范围自动选比例、LOD简化、四种彩色/黑白输出目标、插件适配契约，以及37种家装图纸类型与图纸套编排提案和SQLite关系库/管理页面设计**。V2.0 的142层及两套旧STB保持原样；新的 V2.1 STB 只存在配置目标文件名，尚未生成、不得直接用于出图。
 
 - [绘制顺序规则](docs/13-绘制顺序约束.md) / [数据](data/draw-order-constraints.v2.1.json)
 - [线宽和细节简化](docs/14-纸张比例线宽与细节可见性.md) / [配置](data/lineweight-profiles.v2.1.json)
@@ -65,7 +65,10 @@ V2.1 新增 **绘制顺序DAG、纸张/比例线宽预设、LOD简化、四种�
 - [图纸类型 × 专业表达矩阵](docs/18-各专业图纸表达矩阵.md) / [配置](data/sheet-expression-matrix.v2.1.json)
 - [图纸套样例和目录自动审计](docs/19-图纸套示例与自动审计.md) / [项目条件](examples/sheetset-project.v2.1.example.json)
 - [3种可选图纸套](data/sheetset-presets.v2.1.json) / [ADR-0003](docs/adr/0003-图纸目录与基础视图分离.md)
-- 运行检查：`python scripts/validate_presentation.py`、`python scripts/validate_sheet_system.py`；运行 `python scripts/compile_sheetset.py` 可获得**不可直接施工的建议图纸目录**。
+- [按户型面积/图框净区自动适配比例](docs/20-自动比例适配与图框净区.md) / [规则配置](data/auto-scale-policies.v2.1.json) / [案例](examples/scale-fit-cases.v2.1.json)
+- [关系数据库设计](docs/21-关系数据库与规范发布.md) / [SQLite DDL提案](schema/standard-management-v2.1.sql)
+- [可视化管理页面架构](docs/22-规范管理器与插件调用.md) / [模块配置](data/admin-workspace.v2.1.json)
+- 运行检查：`python scripts/validate_presentation.py`、`python scripts/validate_sheet_system.py`、`python scripts/validate_scale_fit.py`；运行 `python scripts/compile_sheetset.py` 可获得**不可直接施工的建议图纸目录**。
 - **注意**：模型实体图层映射和纸面出图执行器尚未实现，所有 V2.1 STB 都尚未生成。
 
 ## 当前迭代入口
