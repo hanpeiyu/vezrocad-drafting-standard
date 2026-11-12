@@ -70,6 +70,11 @@ assert all(s["sheetInstanceId"]==f"S-{i:03d}" for i,s in enumerate(compiled["she
 assert any(w["code"]=="UNVERIFIED_STB" for w in compiled["diagnostics"])
 assert any(w["code"]=="MANUAL_EXCLUDE" for w in compiled["diagnostics"])
 assert len([s for s in compiled["sheetInstances"] if s["sheetTypeId"]=="ELV-ROOM"])==2
+auto=next(s for s in compiled["sheetInstances"] if s["sheetTypeId"]=="INT-LAYOUT")
+assert auto["output"]["scaleDenominator"] == 75, auto
+assert auto["output"]["lineweightPreset"] == "A3-1-75"
+assert auto["output"]["scaleFit"]["status"] == "fit-suggested"
+assert any(w["code"]=="SCALE_FIT_NOT_EVALUATED" for w in compiled["diagnostics"])
 print(f"PASS sheet taxonomy: {len(groups)} groups, {len(sheetids)} types, {len(tags)} semantic tags, {len(features)} scope features, {len(packages['templates'])} packages")
 print(f"PASS sheetset safe example: {compiled['drawingCount']} suggested instances, {len(compiled['diagnostics'])} review/blocking diagnostics")
 print("NOT VERIFIED: actual AutoCAD generation, final regulatory completeness, specialist drawings, A3 physical plot")

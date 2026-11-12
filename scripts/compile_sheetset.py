@@ -5,6 +5,7 @@ Dry-run only: does not modify DWG or create validated STB/PDF drawings.
 import argparse
 import json
 from pathlib import Path
+from resolve_scale_fit import resolve
 ROOT=Path(__file__).resolve().parents[1]
 
 def read(name):
@@ -66,7 +67,28 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
                 continue
             suggested=t["suggested"]
             paper=project.get("outputRequest",{}).get("defaultPaper",suggested["paper"])
-            scale=suggested["scaleDenominator"]
+            scale=suggested["scaleDenominator"]  # preferred, NOT guaranteed to fit
+            fit_result={"status":"not-evaluated","reason":"No geometry extents supplied; cannot certify paper fit"}
+            view_id=t["baseViewPresetId"]
+            if view_id and scale is not None:
+                refkey=t["id"]+"|"+";".join(f"{k}={target[k]}" for k in sorted(target)) if target else t["id"]
+                geometry=project.get("modelBoundsMm",{}).get(refkey) or project.get("modelBoundsMm",{}).get(t["id"])
+                if geometry:
+                    fit_result=resolve(view_id,geometry["widthMm"],geometry["heightMm"],
+                        allowed_layouts=project.get("outputRequest",{}).get("allowedPaperLayouts",["A3-L"]),
+                        annotation_reserve_width_mm=geometry.get("annotationReserveWidthMm",0),
+                        annotation_reserve_height_mm=geometry.get("annotationReserveHeightMm",0),
+                        locked=geometry.get("locked"),
+                        lineweights_data=profile)
+                    if fit_result["status"]=="fit-suggested":
+                        paper=fit_result["paperId"]
+                        scale=fit_result["scaleDenominator"]
+                        if scale!=suggested["scaleDenominator"]:
+                            warnings.append({"severity":"REVIEW","code":"SCALE_AUTOFIT_ADJUSTED","typeId":t["id"],"preferred":suggested["scaleDenominator"],"suggested":scale,"paper":paper})
+                    else:
+                        warnings.append({"severity":"BLOCKED","code":"SCALE_FIT_FAILED","typeId":t["id"],"details":fit_result})
+                else:
+                    warnings.append({"severity":"REVIEW","code":"SCALE_FIT_NOT_EVALUATED","typeId":t["id"],"reason":"CAD extents are required for actual fit"})
             lw_id=f"{paper}-1-{scale}" if scale else None
             if lw_id and lw_id not in known_profiles:
                 warnings.append({"severity":"ERROR","code":"MISSING_LINEWEIGHT_PRESET","typeId":t["id"],"requested":lw_id})
@@ -83,7 +105,7 @@ def compile_project(project, tax=None, packages=None, profile=None, colors=None)
                 "focusTags":t["expression"]["focus"],
                 "contextTags":t["expression"]["context"],
                 "hiddenTags":t["expression"]["hide"],
-                "output":{"paper":paper,"scaleDenominator":scale,"lineweightPreset":lw_id,
+                "output":{"paper":paper,"scaleDenominator":scale,"lineweightPreset":lw_id,"scaleFit":fit_result,
                           "colorMode":mode,"stbTarget":modes[mode]["targetStbFile"],"readyForProduction":False},
                 "specialistReviewRequired":t["review"]["specialistApproval"],
                 "dependencies":t["prerequisites"]

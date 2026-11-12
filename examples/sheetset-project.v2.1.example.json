@@ -80,10 +80,32 @@
       "GRAY",
       "COLOR"
     ],
-    "allowUnverifiedStb": false
+    "allowUnverifiedStb": false,
+    "allowedPaperLayouts": [
+      "A3-L",
+      "A2-L"
+    ]
   },
   "expectedNotes": [
     "冷水/热水/排水属于专业图纸，具体工程仍需核对",
     "提案不构成电气暖通设计审查或正式施工图交付"
-  ]
+  ],
+  "modelBoundsMm": {
+    "INT-LAYOUT": {
+      "widthMm": 24000,
+      "heightMm": 12000,
+      "source": "anonymous illustration; replace with CAD viewport extents"
+    },
+    "INT-DIM": {
+      "widthMm": 24000,
+      "heightMm": 12000,
+      "source": "anonymous illustration"
+    },
+    "ELE-POWER": {
+      "widthMm": 24000,
+      "heightMm": 12000,
+      "annotationReserveWidthMm": 10,
+      "annotationReserveHeightMm": 10
+    }
+  }
 }
