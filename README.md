@@ -1,4 +1,4 @@
-# VezroCAD 家装施工图图层与图形表达标准（提案 v2.0）
+# VezroCAD 家装制图表达规范（main V2.0 / Draft V2.1）
 
 > **定位：独立的规范仓库**，不是 VezroCAD 插件源代码。先讨论、校验、试打，再通过版本化的数据契约接入插件。 
 > **状态：提案 / 未经 AutoCAD 2027 实机打印验收**（2026-11-12）。
@@ -68,8 +68,13 @@ V2.1 新增 **绘制顺序DAG、纸张/比例线宽预设、按真实图形范�
 - [按户型面积/图框净区自动适配比例](docs/20-自动比例适配与图框净区.md) / [规则配置](data/auto-scale-policies.v2.1.json) / [案例](examples/scale-fit-cases.v2.1.json)
 - [关系数据库设计](docs/21-关系数据库与规范发布.md) / [SQLite DDL提案](schema/standard-management-v2.1.sql)
 - [可视化管理页面架构](docs/22-规范管理器与插件调用.md) / [模块配置](data/admin-workspace.v2.1.json)
-- 运行检查：`python scripts/validate_presentation.py`、`python scripts/validate_sheet_system.py`、`python scripts/validate_scale_fit.py`；运行 `python scripts/compile_sheetset.py` 可获得**不可直接施工的建议图纸目录**。
-- **注意**：模型实体图层映射和纸面出图执行器尚未实现，所有 V2.1 STB 都尚未生成。
+- [图框、图签与纸空间](docs/23-图框图签纸空间规范.md) / [A3/A2/A1模板](data/sheet-frame-templates.v2.1.json)
+- [布局与视口规范](docs/24-图纸布局视口规范.md) / [6种排版](data/sheet-layout-compositions.v2.1.json) / [纸面多方案评分工具](scripts/plan_sheet_layout.py)
+- [逻辑图纸与物理纸页的身份契约](docs/25-身份与表达编译契约.md) / [数据契约](data/drawing-sheet-identity.v2.1.json)
+- [实施与实机验收](docs/26-实施优先级及实机验收.md) / [统一解析器目标契约](data/presentation-plan-contract.v2.1.json)
+- 关系数据库已拓展图框/视口规范表与独立项目索引结构；数据库是**提案**，不存客户真实数据。
+- 运行检查：`python scripts/validate_presentation.py`、`python scripts/validate_sheet_system.py`、`python scripts/validate_scale_fit.py`、`python scripts/validate_sheet_frames.py`；运行 `python scripts/compile_sheetset.py` 可获得**不可直接施工的建议图纸目录**。
+- **注意**：模型实体图层映射和纸面出图执行器尚未实现，所有 V2.1 STB 都尚未生成。版面算法仅以示例纸张净区作数学拟合，未获得CAD实测边距和标注避让数据；“通过CI”不等于可实际交付施工图。
 
 ## 当前迭代入口
 

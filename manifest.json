@@ -29,5 +29,14 @@
   "autoScaleFitProposal": true,
   "relationalManagementSchemaProposal": true,
   "managementUIImplemented": false,
-  "sqliteDatabaseCreated": false
+  "sqliteDatabaseCreated": false,
+  "frameTemplateCount": 3,
+  "layoutTemplateCount": 6,
+  "viewportKindCount": 3,
+  "managementPageCount": 8,
+  "relationalStandardTableCount": 24,
+  "projectIndexTableCount": 7,
+  "stableIdentityContract": "drawingUid vs sheetUid vs viewportUid",
+  "layoutPreviewAlgorithmReady": true,
+  "plotterCalibrationDone": false
 }

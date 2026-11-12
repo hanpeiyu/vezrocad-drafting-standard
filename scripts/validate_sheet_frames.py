@@ -48,6 +48,13 @@ assert set(vp["viewportKinds"][0]["viewIds"])=={x for x in views if x.startswith
 assert vp["autoCADInvariants"]["displayLocked"] is True
 assert frames["sheetBorderPolicies"]["plotScale"]=="1:1"
 assert len(frames["titleBlocks"][0]["mandatoryFields"])>=8
+layers=read("data/layers-v2.json")["layers"]
+layer_by_name={l["图层名称"]:l for l in layers}
+policy=frames["sheetBorderPolicies"]
+for key in ("frameLayer","titleBlockLayer","titleBlockTextLayer","viewportBoundaryLayer"):
+    assert policy[key] in layer_by_name, (key,policy[key])
+assert layer_by_name[policy["viewportBoundaryLayer"]]["是否打印"]==0
+assert layer_by_name[policy["frameLayer"]]["是否打印"]==1
 primary=[{"slotId":"PRIMARY","viewId":"plan-furniture","boundsMm":{"widthMm":24000,"heightMm":12000}}]
 saving=plan_layout(primary,"paper-saving-first")
 readable=plan_layout(primary,"readability-first")

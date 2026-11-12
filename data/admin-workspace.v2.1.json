@@ -50,6 +50,18 @@
       ]
     },
     {
+      "id": "frames-viewports",
+      "title": "图框、图签与视口编排",
+      "features": [
+        "图幅与真实打印可用区域",
+        "图签字段、修订与动态编号",
+        "一纸多视口布局槽位",
+        "视口锁定、UCS、VP线宽和注释性比例",
+        "主图与节点双比例试配评分",
+        "关联逻辑图纸UID与物理纸页UID"
+      ]
+    },
+    {
       "id": "print",
       "title": "打印与颜色",
       "features": [
@@ -106,13 +118,24 @@
       "method": "POST",
       "path": "/api/standards/drafts/export",
       "usage": "generate reviewable JSON patch/PR; not publish automatically"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sheet-layout/preview",
+      "usage": "layout candidate scoring, slot collision, title block/viewport frame diagnostics; not CAD write"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sheet-frame/templates",
+      "usage": "list immutable frame+titleblock+viewport combinations"
     }
   ],
   "implementationRecommendation": {
     "frontend": "React + TypeScript",
     "cadPanel": "WebView2, local/offline first",
     "backend": ".NET C# service + Microsoft.Data.Sqlite or EF Core migrations",
-    "optionalExternalAdmin": "same frontend in standalone local browser / desktop; only when separately enabled"
+    "optionalExternalAdmin": "same frontend in standalone local browser / desktop; only when separately enabled",
+    "presenter": "same versioned PresentationPlan resolver for admin and AutoCAD; no duplicate rule evaluator"
   },
   "permissions": "proposal only; actual user approvals required for publishing or modifying production templates",
   "notImplemented": true
