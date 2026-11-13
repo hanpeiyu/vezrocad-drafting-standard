@@ -3,6 +3,11 @@
   "views": {
     "plan-existing": {
       "title": "原始结构",
+      "viewType": "plan",
+      "discipline": "architecture",
+      "phase": [
+        "existing"
+      ],
       "showProfession": [
         "建筑",
         "标注",
@@ -21,6 +26,12 @@
     },
     "plan-demolition": {
       "title": "拆除与新建",
+      "viewType": "plan",
+      "discipline": "architecture",
+      "phase": [
+        "demolition",
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "拆改",
@@ -38,6 +49,11 @@
     },
     "plan-furniture": {
       "title": "平面布置",
+      "viewType": "plan",
+      "discipline": "furniture",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "定制",
@@ -58,6 +74,11 @@
     },
     "plan-floor": {
       "title": "地面铺装",
+      "viewType": "plan",
+      "discipline": "interior-finish",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "装饰",
@@ -73,6 +94,11 @@
     },
     "plan-ceiling": {
       "title": "吊顶与灯位",
+      "viewType": "ceiling",
+      "discipline": "interior-finish",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "装饰",
@@ -89,6 +115,11 @@
     },
     "plan-electrical": {
       "title": "强弱电",
+      "viewType": "plan",
+      "discipline": "electrical",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "电气",
@@ -109,6 +140,11 @@
     },
     "plan-plumbing": {
       "title": "给排水",
+      "viewType": "plan",
+      "discipline": "plumbing",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "给排",
@@ -127,6 +163,11 @@
     },
     "elevation": {
       "title": "立面",
+      "viewType": "elevation",
+      "discipline": "interior-finish",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "装饰",
@@ -147,6 +188,11 @@
     },
     "detail": {
       "title": "剖面节点",
+      "viewType": "detail",
+      "discipline": "interior-finish",
+      "phase": [
+        "new"
+      ],
       "showProfession": [
         "建筑",
         "装饰",

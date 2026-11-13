@@ -62,7 +62,13 @@ def main():
         check(m["view"] in views, f"mapping view: {m}")
         check(m["representationRole"] in role_ids, f"mapping role: {m}")
 
+    VIEW_TYPES = {"plan", "ceiling", "elevation", "section", "detail"}
+    DISCIPLINES = {"architecture", "interior-finish", "furniture", "electrical", "plumbing", "hvac"}
+    PHASES = {"existing", "retained", "demolition", "new", "as-built"}
     for vid, v in views.items():
+        check(v.get("viewType") in VIEW_TYPES, f"view {vid}: viewType")
+        check(v.get("discipline") in DISCIPLINES, f"view {vid}: discipline")
+        check(bool(v.get("phase")) and set(v["phase"]) <= PHASES, f"view {vid}: phase")
         for key in ("focusRoles", "faintRoles"):
             for rid in v.get(key, []):
                 check(rid in role_ids, f"view {vid}.{key} unknown role {rid}")
