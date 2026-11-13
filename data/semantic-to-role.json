@@ -1,0 +1,16 @@
+{
+  "schema": "vezrocad.semantic-to-role.v1",
+  "version": "0.1.0",
+  "status": "proposed",
+  "description": "插件侧表达语义（可见性语义）到本仓库表达角色（样式角色）的映射。语义决定“这条线在该视图里是什么”，角色决定“画成什么样”。",
+  "mappings": [
+    {"semantic": "Cut", "role": "CUT_HEAVY", "note": "真实剖切交线/剖面边界"},
+    {"semantic": "Visible", "role": "OUTLINE_PRIMARY", "note": "视线可见轮廓；DetailLevel 为精细时内部线可降为 OUTLINE_SECONDARY 或 DETAIL_THIN"},
+    {"semantic": "Beyond", "role": "OUTLINE_SECONDARY", "note": "剖切面后方可见的投影"},
+    {"semantic": "Hidden", "role": "HIDDEN_DASHED", "note": "仅在图纸明确要求时输出；常规遮挡默认省略"},
+    {"semantic": "Overhead", "role": "HIDDEN_DASHED", "note": "上方构件约定显示；是否拆出独立角色见 docs/13 待决项"},
+    {"semantic": "Ghost", "role": "HIDDEN_DASHED", "note": "为说明关系刻意显示的被遮挡对象；是否拆出独立角色见 docs/13 待决项"},
+    {"semantic": "Context", "role": "UNDERLAY_FAINT", "note": "背景参照，可打印的浅色底图"},
+    {"semantic": "Auxiliary", "role": "NONPLOT_GUIDE", "note": "非施工打印的辅助几何，Plot=Off"}
+  ]
+}

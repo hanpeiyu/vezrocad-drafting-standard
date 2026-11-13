@@ -1,9 +1,9 @@
 name: Validate drafting standard data
 on:
   push:
-    paths: ["data/**", "scripts/**", ".github/workflows/validate.yml"]
+    paths: ["data/**", "assets/**", "examples/**", "manifest.json", "scripts/**", ".github/workflows/validate.yml"]
   pull_request:
-    paths: ["data/**", "scripts/**", ".github/workflows/validate.yml"]
+    paths: ["data/**", "assets/**", "examples/**", "manifest.json", "scripts/**", ".github/workflows/validate.yml"]
 jobs:
   verify:
     runs-on: ubuntu-latest

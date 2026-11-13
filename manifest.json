@@ -3,15 +3,12 @@
   "ownerHint": "hanpeiyu",
   "visibilityRecommendation": "private",
   "version": "2.0.0",
-  "repoCreatedOnGitHub": true,
-  "filesCount": 34,
   "layerCount": 142,
   "representationRoleCount": 13,
   "viewPresetCount": 9,
-  "currentRemoteName": "hanpeiyu/vezrocad-drafting-standard",
-  "desiredRemoteName": "hanpeiyu/vezrocad-drafting-standard",
-  "remoteRenamePending": false,
   "visibilityActual": "public",
   "status": "draft",
-  "printValidation": "pending-AutoCAD-2027"
+  "printValidation": "pending-AutoCAD-2027",
+  "remote": "hanpeiyu/vezrocad-drafting-standard",
+  "semanticMappingCount": 8
 }
