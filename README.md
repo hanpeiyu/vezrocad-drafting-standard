@@ -30,6 +30,7 @@
 - [`docs/11-GitHub初始化与协作.md`](docs/11-GitHub初始化与协作.md)：仓库现状、协作与迭代流程
 - [`docs/12-设计决策与验收门槛.md`](docs/12-设计决策与验收门槛.md)：后续讨论的决定项与验收门槛
 - [`docs/13-与插件架构建议书的衔接.md`](docs/13-与插件架构建议书的衔接.md)：表达语义→角色映射、与插件仓库的分工
+- [`docs/14-引线标注图例与版式规范-提案.md`](docs/14-引线标注图例与版式规范-提案.md)：拆改、家具、地面、天花、立面和设备的引线图例、编码、四边对齐与排版美感规则
 - [`docs/adr/0001-拆分图层与表达角色.md`](docs/adr/0001-拆分图层与表达角色.md)：首个架构决定记录
 - [`data/layers-v2.json`](data/layers-v2.json)：142 层提案目录，含默认表达角色、稳定键
 - [`data/representation-roles.json`](data/representation-roles.json)：13 个图形表达角色
